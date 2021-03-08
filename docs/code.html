@@ -1,0 +1,1207 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Code documentation: ampartrafficking &mdash; AMPAR-Trafficking-Model 02.11.2020 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> AMPAR-Trafficking-Model
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Code documentation: ampartrafficking</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-ampartrafficking.rate_model">rate_model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ampartrafficking.parameter_sampling">parameter_sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ampartrafficking.stochastic_model">stochastic_model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ampartrafficking.frap">frap</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">AMPAR-Trafficking-Model</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Code documentation: ampartrafficking</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/code.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="code-documentation-ampartrafficking">
+<h1>Code documentation: ampartrafficking</h1>
+<div class="section" id="module-ampartrafficking.rate_model">
+<span id="rate-model"></span><h2>rate_model</h2>
+<p>Created on Wed Nov  4 11:43:38 2020</p>
+<p>&#64;author: Moritz</p>
+<dl class="py class">
+<dt id="ampartrafficking.rate_model.Parameter">
+<em class="property">class </em><code class="sig-prename descclassname">ampartrafficking.rate_model.</code><code class="sig-name descname">Parameter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">base_value</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/rate_model.html#Parameter"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>This class defines some basic properties and functionality for parameters that change during LTP induction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>base_value</strong><span class="classifier">float</span></dt><dd><p>Base value of the correspconding model parameter, i.e. before LTP-induction.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 82%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>timecourse(function,pars)</strong></p></td>
+<td><p>Sets up time course of the parameter during LTP-induction. Requires a function and the parameters of that function to be passed.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>update(t)</strong></p></td>
+<td><p>Updates the parameter to the current value according to the function passed to timecourse.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="ampartrafficking.rate_model.Parameter.timecourse">
+<code class="sig-name descname">timecourse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">function</span></em>, <em class="sig-param"><span class="n">pars</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/rate_model.html#Parameter.timecourse"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Sets up time course of the parameter during LTP-induction. Requires a function and the parameters of that function to be passed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>function</strong><span class="classifier">function</span></dt><dd><p>A function that describes the time course of the parameter during LTP-induction</p>
+</dd>
+<dt><strong>pars</strong><span class="classifier">array_like</span></dt><dd><p>List of parameters for the function.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>out:</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ampartrafficking.rate_model.Parameter.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/rate_model.html#Parameter.update"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Sets up time course of the parameter during LTP-induction. Requires a function and the parameters of that function to be passed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>t</strong><span class="classifier">float</span></dt><dd><p>Time passed since the LTP induction stimulus.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>out: Updates current value of the partameter.</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="ampartrafficking.rate_model.Model_system">
+<em class="property">class </em><code class="sig-prename descclassname">ampartrafficking.rate_model.</code><code class="sig-name descname">Model_system</code><a class="reference internal" href="_modules/ampartrafficking/rate_model.html#Model_system"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>This class contains the set of differential equations that describe AMPAR trafficking at spines.</p>
+<p class="rubric">Methods</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 67%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>odes(Init,t,Vspine,P,kin,kout,kexo,kendo,kUB,kBU,Cooperativity,sLTP,kin_RE,kout_RE)</strong></p></td>
+<td><p>Defines the ODEs that describe the synapse.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="ampartrafficking.rate_model.Model_system.odes">
+<code class="sig-name descname">odes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Init</span></em>, <em class="sig-param"><span class="n">t</span></em>, <em class="sig-param"><span class="n">Vspine</span></em>, <em class="sig-param"><span class="n">P</span></em>, <em class="sig-param"><span class="n">kin</span></em>, <em class="sig-param"><span class="n">kout</span></em>, <em class="sig-param"><span class="n">kexo</span></em>, <em class="sig-param"><span class="n">kendo</span></em>, <em class="sig-param"><span class="n">kUB</span></em>, <em class="sig-param"><span class="n">kBU</span></em>, <em class="sig-param"><span class="n">Cooperativity</span></em>, <em class="sig-param"><span class="n">sLTP</span></em>, <em class="sig-param"><span class="n">kin_RE</span></em>, <em class="sig-param"><span class="n">kout_RE</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/rate_model.html#Model_system.odes"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Defines the ODEs that describe the AMPAR dynamics at the spine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Init</strong><span class="classifier">[U(0),B(0),Sexo(0)]</span></dt><dd><p>Initial conditions for the three variables of the system.</p>
+</dd>
+<dt><strong>t</strong><span class="classifier">array_like</span></dt><dd><p>Time.</p>
+</dd>
+<dt><strong>Vspine</strong><span class="classifier">float</span></dt><dd><p>Describes the spine volume and spine volume change during E-LTP.</p>
+</dd>
+<dt><strong>P</strong><span class="classifier">float</span></dt><dd><p>Number of binding site/slots at the PSD.</p>
+</dd>
+<dt><strong>kin</strong><span class="classifier">float</span></dt><dd><p>Rate at which receptors hop from the dednritic membrane compartment onto the spine membrane compartment.</p>
+</dd>
+<dt><strong>kout</strong><span class="classifier">float</span></dt><dd><p>Rate at which receptors hop from the spine membrane compartment onto the dendritic membrane compartment.</p>
+</dd>
+<dt><strong>kexo</strong><span class="classifier">float</span></dt><dd><p>Rate of exocytosis events occuring at the spine.</p>
+</dd>
+<dt><strong>kendo</strong><span class="classifier">float</span></dt><dd><p>Rate at which receptors are endocytosed at the spine.</p>
+</dd>
+<dt><strong>kUB</strong><span class="classifier">float</span></dt><dd><p>Rate at which AMPARs bind to PSD slots.</p>
+</dd>
+<dt><strong>kBU</strong><span class="classifier">float</span></dt><dd><p>Rate at which AMPARs unbind from PSD slots.</p>
+</dd>
+<dt><strong>Cooperativity: 1,0</strong></dt><dd><p>States whether binding is cooperative (1) or not cooperative (0).</p>
+</dd>
+<dt><strong>sLTP</strong><span class="classifier">1,0</span></dt><dd><p>States whether slTP does occur (1) or does not occur (0).</p>
+</dd>
+<dt><strong>kin_RE</strong><span class="classifier">float</span></dt><dd><p>Rate at which AMPAR containing endosomes enter the spine (dynamics of exocytosis event size Sexo).</p>
+</dd>
+<dt><strong>kout_RE</strong><span class="classifier">float</span></dt><dd><p>Rate at which AMPAR containing endosomes leave the spine.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>out: [dU,dB,dS_exo]</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="ampartrafficking.rate_model.kUB_">
+<code class="sig-prename descclassname">ampartrafficking.rate_model.</code><code class="sig-name descname">kUB_</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">B</span></em>, <em class="sig-param"><span class="n">kUB</span></em>, <em class="sig-param"><span class="n">Cooperativity</span></em>, <em class="sig-param"><span class="n">P</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/rate_model.html#kUB_"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the receptor binding rate kUB for either the cooperative or the non-cooperative binding model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>B</strong><span class="classifier">float</span></dt><dd><p>Number of bound receptors.</p>
+</dd>
+<dt><strong>kUB</strong><span class="classifier">float</span></dt><dd><p>Rate at which AMPARs bind to PSD slots.</p>
+</dd>
+<dt><strong>Cooperativity</strong><span class="classifier">0, 1</span></dt><dd><p>Specifies whether cooperative recepotr binding is accounted for (=1) or not (=0).</p>
+</dd>
+<dt><strong>P</strong><span class="classifier">float</span></dt><dd><p>Number of binding site/slots at the PSD.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>float</dt><dd><p>kUB.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ampartrafficking.rate_model.kBU_">
+<code class="sig-prename descclassname">ampartrafficking.rate_model.</code><code class="sig-name descname">kBU_</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">B</span></em>, <em class="sig-param"><span class="n">kBU</span></em>, <em class="sig-param"><span class="n">Cooperativity</span></em>, <em class="sig-param"><span class="n">P</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/rate_model.html#kBU_"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the receptor unbinding rate kUB for either the cooperative or the non-cooperative binding model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>B</strong><span class="classifier">float</span></dt><dd><p>Number of bound receptors.</p>
+</dd>
+<dt><strong>kBU</strong><span class="classifier">float</span></dt><dd><p>Rate at which AMPARs unbind from PSD slots.</p>
+</dd>
+<dt><strong>Cooperativity</strong><span class="classifier">0, 1</span></dt><dd><p>Specifies whether cooperative recepotr binding is accounted for (=1) or not (=0).</p>
+</dd>
+<dt><strong>P</strong><span class="classifier">float</span></dt><dd><p>Number of binding site/slots at the PSD.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>float</dt><dd><p>kUB.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ampartrafficking.rate_model.Stim_Resp">
+<code class="sig-prename descclassname">ampartrafficking.rate_model.</code><code class="sig-name descname">Stim_Resp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em>, <em class="sig-param"><span class="n">a0</span></em>, <em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em>, <em class="sig-param"><span class="n">c</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/rate_model.html#Stim_Resp"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>This function describes the response of a parameter to the LTP induction-stimulus.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>t</strong><span class="classifier">float</span></dt><dd><p>time passed since induction of LTP</p>
+</dd>
+<dt><strong>a0</strong><span class="classifier">float</span></dt><dd><p>baseline of the parameter (Should usually be set to 1).</p>
+</dd>
+<dt><strong>a</strong><span class="classifier">float</span></dt><dd><p>Parameter amplitude during LTP induction</p>
+</dd>
+<dt><strong>b</strong><span class="classifier">float</span></dt><dd><p>time constant</p>
+</dd>
+<dt><strong>c</strong><span class="classifier">float</span></dt><dd><p>time constant</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>float</dt><dd><p>current factor of parameter change.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Import libraries:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ampartrafficking.rate_model</span> <span class="k">as</span> <span class="nn">rm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+</pre></div>
+</div>
+<p>Set parameters:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="o">*</span><span class="mi">60</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kexo0</span><span class="o">=</span><span class="mf">0.0018</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exocytosis</span><span class="o">=</span><span class="kc">True</span>
+</pre></div>
+</div>
+<p>Plot:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span><span class="n">kexo0</span><span class="o">*</span><span class="n">rm</span><span class="o">.</span><span class="n">Stim_Resp</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">60</span><span class="p">),</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (min.)&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$k_</span><span class="si">{exo}</span><span class="s1">$ ($s^{-1}$)&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<a class="reference internal image-reference" href="_images/example_Stim_Resp.png"><img alt="_images/example_Stim_Resp.png" src="_images/example_Stim_Resp.png" style="width: 70%;" /></a>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ampartrafficking.rate_model.DV">
+<code class="sig-prename descclassname">ampartrafficking.rate_model.</code><code class="sig-name descname">DV</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em>, <em class="sig-param"><span class="n">V0</span></em>, <em class="sig-param"><span class="n">exocytosis</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/rate_model.html#DV"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>This function describes the evolution of the spine volume during sLTP.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>t</strong><span class="classifier">float</span></dt><dd><p>time passed since induction of LTP</p>
+</dd>
+<dt><strong>V0</strong><span class="classifier">float</span></dt><dd><p>initial spine volume.</p>
+</dd>
+<dt><strong>exocytosis</strong><span class="classifier">True, False</span></dt><dd><p>States whether exocytosis is blocked or not. Make sure that the boolean value is chosen in agreement with the definition of kexo.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>float</dt><dd><p>current factor of spine volume change.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Import libraries:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ampartrafficking.rate_model</span> <span class="k">as</span> <span class="nn">rm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+</pre></div>
+</div>
+<p>Set parameters:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">120</span><span class="o">*</span><span class="mi">60</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exocytosis</span><span class="o">=</span><span class="kc">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">spineVolumes</span><span class="o">=</span><span class="p">[</span><span class="mf">0.04</span><span class="p">,</span><span class="mf">0.08</span><span class="p">,</span><span class="mf">0.2</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Plot:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">V0</span> <span class="ow">in</span> <span class="n">spineVolumes</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span><span class="n">rm</span><span class="o">.</span><span class="n">DV</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V0</span><span class="p">,</span><span class="n">exocytosis</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$V_</span><span class="si">{spine}</span><span class="s1">^0=$&#39;</span><span class="o">+</span><span class="s1">&#39;</span><span class="si">{:1.2f}</span><span class="s1"> $\mu m^3$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">V0</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (min.)&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$V_</span><span class="si">{spine}</span><span class="s1">$ (%)&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<a class="reference internal image-reference" href="_images/example_DV.png"><img alt="_images/example_DV.png" src="_images/example_DV.png" style="width: 70%;" /></a>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ampartrafficking.rate_model.kUB0_">
+<code class="sig-prename descclassname">ampartrafficking.rate_model.</code><code class="sig-name descname">kUB0_</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Init</span></em>, <em class="sig-param"><span class="n">kBU</span></em>, <em class="sig-param"><span class="n">P</span></em>, <em class="sig-param"><span class="n">Aspine</span></em>, <em class="sig-param"><span class="n">Cooperativity</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/rate_model.html#kUB0_"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the receptor binding rate at baseline, which is calculated from the fixed point equation of the AMPAR trafficking model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Init</strong><span class="classifier">array_like</span></dt><dd><p>Initial state values for U, B and Sexo ([U(0),B(0),Sexo(0)]) .</p>
+</dd>
+<dt><strong>kBU</strong><span class="classifier">float</span></dt><dd><p>Rate at which AMPARs unbind from PSD slots.</p>
+</dd>
+<dt><strong>P</strong><span class="classifier">float</span></dt><dd><p>Number of binding site/slots at the PSD.</p>
+</dd>
+<dt><strong>Aspine</strong><span class="classifier">float</span></dt><dd><p>Spine surface area.</p>
+</dd>
+<dt><strong>Cooperativity</strong><span class="classifier">0, 1</span></dt><dd><p>Specifies whether cooperative recepotr binding is accounted for (=1) or not (=0).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>float</dt><dd><p>Receptor binding rate at baseline kUB0.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ampartrafficking.rate_model.kendo_">
+<code class="sig-prename descclassname">ampartrafficking.rate_model.</code><code class="sig-name descname">kendo_</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Init</span></em>, <em class="sig-param"><span class="n">kexo0</span></em>, <em class="sig-param"><span class="n">kin</span></em>, <em class="sig-param"><span class="n">kout</span></em>, <em class="sig-param"><span class="n">Aspine</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/rate_model.html#kendo_"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the receptor endocytosis rate, which is calculated from the fixed point equation of the AMPAR trafficking model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Init</strong><span class="classifier">array_like</span></dt><dd><p>Initial state values for U, B and Sexo ([U(0),B(0),Sexo(0)]) .</p>
+</dd>
+<dt><strong>kexo0</strong><span class="classifier">float</span></dt><dd><p>Rate of exocytosis events occuring at the spine under basal conditions.</p>
+</dd>
+<dt><strong>kin</strong><span class="classifier">float</span></dt><dd><p>Rate at which receptors hop from the dednritic membrane compartment onto the spine membrane compartment.</p>
+</dd>
+<dt><strong>kout</strong><span class="classifier">float</span></dt><dd><p>Rate at which receptors hop from the spine membrane compartment onto the dendritic membrane compartment.</p>
+</dd>
+<dt><strong>Aspine</strong><span class="classifier">float</span></dt><dd><p>Spine surface area.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>float</dt><dd><p>Receptor endocytosis rate kendo.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ampartrafficking.rate_model.SexoFP_">
+<code class="sig-prename descclassname">ampartrafficking.rate_model.</code><code class="sig-name descname">SexoFP_</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">kin_RE</span></em>, <em class="sig-param"><span class="n">kout_RE</span></em>, <em class="sig-param"><span class="n">Vspine</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/rate_model.html#SexoFP_"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the fixed point of the exocytosis event size Sexo, i.e. the number of AMPARs delivered to the spine membrane during one exocytosis event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>kin_RE</strong><span class="classifier">float</span></dt><dd><p>Rate at which AMPAR containing endosomes enter the spine (dynamics of exocytosis event size Sexo).</p>
+</dd>
+<dt><strong>kout_RE</strong><span class="classifier">float</span></dt><dd><p>Rate at which AMPAR containing endosomes leave the spine.</p>
+</dd>
+<dt><strong>Vspine</strong><span class="classifier">float</span></dt><dd><p>Spine volume.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>float</dt><dd><p>Fixed point of the exocytosis event size Sexo.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ampartrafficking.rate_model.UFP_">
+<code class="sig-prename descclassname">ampartrafficking.rate_model.</code><code class="sig-name descname">UFP_</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">kexo</span></em>, <em class="sig-param"><span class="n">Sexo</span></em>, <em class="sig-param"><span class="n">kendo</span></em>, <em class="sig-param"><span class="n">kin</span></em>, <em class="sig-param"><span class="n">kout</span></em>, <em class="sig-param"><span class="n">Aspine</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/rate_model.html#UFP_"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the fixed point of the mobile receptor pool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>kexo</strong><span class="classifier">float</span></dt><dd><p>Rate of exocytosis events occuring at the spine.</p>
+</dd>
+<dt><strong>Sexo</strong><span class="classifier">float</span></dt><dd><p>Exocytosis event size.</p>
+</dd>
+<dt><strong>kendo</strong><span class="classifier">float</span></dt><dd><p>Rate at which receptors are endocytosed at the spine.</p>
+</dd>
+<dt><strong>kin</strong><span class="classifier">float</span></dt><dd><p>Rate at which receptors hop from the dednritic membrane compartment onto the spine membrane compartment.</p>
+</dd>
+<dt><strong>kout</strong><span class="classifier">float</span></dt><dd><p>Rate at which receptors hop from the spine membrane compartment onto the dendritic membrane compartment.</p>
+</dd>
+<dt><strong>Aspine</strong><span class="classifier">float</span></dt><dd><p>Spine surface area.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>float</dt><dd><p>Fixed point of the mobile receptor pool.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ampartrafficking.rate_model.BFP_">
+<code class="sig-prename descclassname">ampartrafficking.rate_model.</code><code class="sig-name descname">BFP_</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">UFP</span></em>, <em class="sig-param"><span class="n">kUB</span></em>, <em class="sig-param"><span class="n">kBU</span></em>, <em class="sig-param"><span class="n">P</span></em>, <em class="sig-param"><span class="n">Aspine</span></em>, <em class="sig-param"><span class="n">Cooperativity</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/rate_model.html#BFP_"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the fixed point of the bound receptor pool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>UFP</strong><span class="classifier">float</span></dt><dd><p>Fixed point of the mobile receptor pool.</p>
+</dd>
+<dt><strong>kUB</strong><span class="classifier">float</span></dt><dd><p>Rate at which AMPARs bind to PSD slots.</p>
+</dd>
+<dt><strong>kBU</strong><span class="classifier">float</span></dt><dd><p>Rate at which AMPARs unbind from PSD slots.</p>
+</dd>
+<dt><strong>P</strong><span class="classifier">float</span></dt><dd><p>Number of binding site/slots at the PSD.</p>
+</dd>
+<dt><strong>Aspine</strong><span class="classifier">float</span></dt><dd><p>Spine surface area.</p>
+</dd>
+<dt><strong>Cooperativity</strong><span class="classifier">0, 1</span></dt><dd><p>Specifies whether cooperative recepotr binding is accounted for (=1) or not (=0).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>float</dt><dd><p>Fixed point of the bound receptor pool.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-ampartrafficking.parameter_sampling">
+<span id="parameter-sampling"></span><h2>parameter_sampling</h2>
+<p>Created on Tue Nov 10 17:12:34 2020</p>
+<p>&#64;author: Moritz</p>
+<dl class="py function">
+<dt id="ampartrafficking.parameter_sampling.parameterSampling">
+<code class="sig-prename descclassname">ampartrafficking.parameter_sampling.</code><code class="sig-name descname">parameterSampling</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em>, <em class="sig-param"><span class="n">Init</span></em>, <em class="sig-param"><span class="n">sLTP</span></em>, <em class="sig-param"><span class="n">Cooperativity</span></em>, <em class="sig-param"><span class="n">P</span></em>, <em class="sig-param"><span class="n">kin</span></em>, <em class="sig-param"><span class="n">kout</span></em>, <em class="sig-param"><span class="n">Trials</span></em>, <em class="sig-param"><span class="n">kBU_max</span></em>, <em class="sig-param"><span class="n">aUB_max</span></em>, <em class="sig-param"><span class="n">TUB_max</span></em>, <em class="sig-param"><span class="n">kexo_max</span></em>, <em class="sig-param"><span class="n">aexo_max</span></em>, <em class="sig-param"><span class="n">Texo_max</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/parameter_sampling.html#parameterSampling"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns evolution over time of bound AMPARs for normal E-LTP and LTP with exocytosis blockage for various Trials. Parameter values for exocytosis event, receptor binding and unbinding rate are drawn randomly for each Trial. Also, evolution over time of mobile receptors, binding rate and exocytosis event rate and spine area are returned as well as values for the baseline exocytosis event rate kexo0, the factor of change in exocytosis event rate amplitide during LTP-induction aexo and amplitude decay time constant Texo are returned for each Trial.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>t</strong><span class="classifier">array_like</span></dt><dd><p>Time over which the model is integrated.</p>
+</dd>
+<dt><strong>Init</strong><span class="classifier">array_like</span></dt><dd><p>Initial state values for U, B and Sexo ([U(0),B(0),Sexo(0)]) .</p>
+</dd>
+<dt><strong>sLTP</strong><span class="classifier">0, 1</span></dt><dd><p>Specifies whether sLTP is accounted for (=1) or not (=0).</p>
+</dd>
+<dt><strong>Cooperativity</strong><span class="classifier">0, 1</span></dt><dd><p>Specifies whether cooperative recepotr binding is accounted for (=1) or not (=0).</p>
+</dd>
+<dt><strong>P</strong><span class="classifier">float</span></dt><dd><p>Number of receptor binding sites</p>
+</dd>
+<dt><strong>kin</strong><span class="classifier">float</span></dt><dd><p>Rate at which receptors hop from the dednritic membrane compartment onto the spine membrane compartment.</p>
+</dd>
+<dt><strong>kout</strong><span class="classifier">float</span></dt><dd><p>Rate at which receptors hop from the spine membrane compartment onto the dendritic membrane compartment.</p>
+</dd>
+<dt><strong>Trials</strong><span class="classifier">integer</span></dt><dd><p>Number of trials.</p>
+</dd>
+<dt><strong>kBU_max</strong><span class="classifier">float</span></dt><dd><p>Maximum of the receptor unbinding rate. Values are drawn randomly between 0 and kBU_max. kUB0 is calculated from the unbinding rate (kUB0_(kBU)).</p>
+</dd>
+<dt><strong>aUB_max</strong><span class="classifier">float</span></dt><dd><p>Maximum of the factor by which the receptor binding rate increases during LTP-induction. Values are drawn randomly between 0 and aUB_max.</p>
+</dd>
+<dt><strong>TUB_max</strong><span class="classifier">float</span></dt><dd><p>Maximum of the decay time by which the receptor binding rate decreases to the baseline after LTP-induction. Values are drawn randomly between 0 and TUB_max.</p>
+</dd>
+<dt><strong>kexo_max</strong><span class="classifier">float</span></dt><dd><p>Maximum of the baseline receptor exocytosis event rate kexo0. Values are drawn randomly between 0 and kexo_max. kendo is calculated from the exocytosis event rate (kendo_(kexo0)).</p>
+</dd>
+<dt><strong>aexo_max</strong><span class="classifier">float</span></dt><dd><p>Maximum of the factor by which the receptor exocytosis event rate increases during LTP-induction. Values are drawn randomly between 0 and aexo_max.</p>
+</dd>
+<dt><strong>Texo_max</strong><span class="classifier">float</span></dt><dd><p>Maximum of the decay time by which the receptor exocytosis event rate decreases to the baseline after LTP-induction. Values are drawn randomly between 0 and Texo_max.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>B_Tr</strong><span class="classifier">array_like</span></dt><dd><p>Time evolution of bound receptors during normal E-LTP for different Trials; shape(Trials, len(t))</p>
+</dd>
+<dt><strong>B_ne_Tr</strong><span class="classifier">array_like</span></dt><dd><p>Time evolution of bound receptors during E-LTP with exocytosis blockage for different Trials; shape(Trials, len(t))</p>
+</dd>
+<dt><strong>U_Tr</strong><span class="classifier">array_like</span></dt><dd><p>Time evolution of mobile receptors for different Trials; shape(Trials, len(t))</p>
+</dd>
+<dt><strong>kUB_Tr</strong><span class="classifier">array_like</span></dt><dd><p>Time evolution of the receptor binding rate for different Trials; shape(Trials, len(t))</p>
+</dd>
+<dt><strong>kexo_Tr</strong><span class="classifier">array_like</span></dt><dd><p>Time evolution of the receptor exocytosis event rate for different Trials; shape(Trials, len(t))</p>
+</dd>
+<dt><strong>Aspine_Tr</strong><span class="classifier">array_like</span></dt><dd><p>Time evolution of the spine surface area for different Trials; shape(Trials, len(t))</p>
+</dd>
+<dt><strong>kexo0_Tr</strong><span class="classifier">array_like</span></dt><dd><p>Values of the receptor exocytosis event rate at baseline for different Trials; shape(Trials)</p>
+</dd>
+<dt><strong>aexo_Tr</strong><span class="classifier">array_like</span></dt><dd><p>Values of the factor by which the receptor exocytosis event rate increases during LTP-induction for different Trials; shape(Trials)</p>
+</dd>
+<dt><strong>Texo_Tr</strong><span class="classifier">array_like</span></dt><dd><p>Values of the decay time by which the receptor exocytosis event rate decreases to the baseline after LTP-induction for different Trials; shape(Trials)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ampartrafficking.parameter_sampling.ELTP">
+<code class="sig-prename descclassname">ampartrafficking.parameter_sampling.</code><code class="sig-name descname">ELTP</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/parameter_sampling.html#ELTP"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns time evolution of EPSPs during E-LTP in % of baseline. The function has been fitted to data from Barco et al. 2002.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Time</strong><span class="classifier">array_like</span></dt><dd><p>Time in s.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>float</dt><dd><p>Time evolution of EPSPs during E-LTP in % of baseline.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ampartrafficking.parameter_sampling.LTPnoExo">
+<code class="sig-prename descclassname">ampartrafficking.parameter_sampling.</code><code class="sig-name descname">LTPnoExo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/parameter_sampling.html#LTPnoExo"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns time evolution of EPSPs during LTP with exocytosis blockage in % of baseline. The function has been fitted to data from Penn et al. 2017.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Time</strong><span class="classifier">array_like</span></dt><dd><p>Time in s.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>float</dt><dd><p>Time evolution of EPSPs during LTP with exocytosis blockage in % of baseline.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ampartrafficking.parameter_sampling.Matching">
+<code class="sig-prename descclassname">ampartrafficking.parameter_sampling.</code><code class="sig-name descname">Matching</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">B_Basal</span></em>, <em class="sig-param"><span class="n">B_nE</span></em>, <em class="sig-param"><span class="n">Trials</span></em>, <em class="sig-param"><span class="n">Time</span></em>, <em class="sig-param"><span class="n">BFP</span></em>, <em class="sig-param"><span class="n">Percentage</span><span class="o">=</span><span class="default_value">0.005</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/parameter_sampling.html#Matching"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the indices and distance measure for the 0.5% of Trials that best match with experimental data from Barco et al. 2002 and Penn et al. 2017.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>B_Basal</strong><span class="classifier">array_like</span></dt><dd><p>Time evolution of bound AMPARs during normal E-LTP for different Trials (shape(Trials,t)).</p>
+</dd>
+<dt><strong>B_nE</strong><span class="classifier">array_like</span></dt><dd><p>Time evolution of bound AMPARs during LTP with exocytosis blockage for different Trials (shape(Trials,len(Time))).</p>
+</dd>
+<dt><strong>Trials</strong><span class="classifier">int</span></dt><dd><p>Number of trials.</p>
+</dd>
+<dt><strong>Time</strong><span class="classifier">array_like</span></dt><dd><p>Time in s.</p>
+</dd>
+<dt><strong>BFP</strong><span class="classifier">float</span></dt><dd><p>Fixed point/Basline level of the number of bound receptors.</p>
+</dd>
+<dt><strong>Percentage</strong><span class="classifier">float, optional</span></dt><dd><p>By default Percentage=0.005. Percentage of Trials that are returned that best match with experimental data.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>GoodMatch_index</strong><span class="classifier">array_like</span></dt><dd><p>Indices of the 0.5% of Trials that best match with experimental data.</p>
+</dd>
+<dt><strong>GoodMatch_Value</strong><span class="classifier">array_like</span></dt><dd><p>Distance measure of the 0.5% of Trials that best match with experimental data.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-ampartrafficking.stochastic_model">
+<span id="stochastic-model"></span><h2>stochastic_model</h2>
+<p>Created on Wed Nov  4 11:48:22 2020</p>
+<p>&#64;author: Moritz</p>
+<dl class="py function">
+<dt id="ampartrafficking.stochastic_model.nearestNeighbours">
+<code class="sig-prename descclassname">ampartrafficking.stochastic_model.</code><code class="sig-name descname">nearestNeighbours</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">PSD</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/stochastic_model.html#nearestNeighbours"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the number of nearest neighbours on a grid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>PSD</strong><span class="classifier">array_like</span></dt><dd><p>Grid with occupied and free elements, shape(N, N)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>out: array_like</dt><dd><p>Matrix containing the number of nearest neighbors for each element of the grid matrix.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Import libraries:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ampartrafficking.stochastic_model</span> <span class="k">as</span> <span class="nn">sm</span>
+</pre></div>
+</div>
+<p>Create and populate grid and calculate nearest neighbour matrix:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">N</span><span class="o">=</span><span class="mi">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">PSD</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">PSD</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="mi">20</span><span class="p">)]</span><span class="o">=</span><span class="mi">1</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">NN</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">nearestNeighbours</span><span class="p">(</span><span class="n">PSD</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Plot:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">PSD</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">NN</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<a class="reference internal image-reference" href="_images/example1_nearestNeighbours.png"><img alt="_images/example1_nearestNeighbours.png" src="_images/example1_nearestNeighbours.png" style="width: 30%;" /></a>
+<a class="reference internal image-reference" href="_images/example2_nearestNeighbours.png"><img alt="_images/example2_nearestNeighbours.png" src="_images/example2_nearestNeighbours.png" style="width: 30%;" /></a>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ampartrafficking.stochastic_model.kBUcoop">
+<code class="sig-prename descclassname">ampartrafficking.stochastic_model.</code><code class="sig-name descname">kBUcoop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">kBU</span></em>, <em class="sig-param"><span class="n">NN</span></em>, <em class="sig-param"><span class="n">PSD</span></em>, <em class="sig-param"><span class="n">typeID</span></em>, <em class="sig-param"><span class="n">beta</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/stochastic_model.html#kBUcoop"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the cooperative unbinding rate per bound receptor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>kBU</strong><span class="classifier">float</span></dt><dd><p>unbinding rate</p>
+</dd>
+<dt><strong>beta</strong><span class="classifier">float, optional</span></dt><dd><p>By default beta=1.0. Factor by which the fraction of occupied nearest neighbours lowers the unbinding rate.</p>
+</dd>
+<dt><strong>NN</strong><span class="classifier">array_like</span></dt><dd><p>Matrix that contains the number of nearest neighbours for each grid element.</p>
+</dd>
+<dt><strong>PSD</strong><span class="classifier">array_like</span></dt><dd><p>Matrix representing the PSD grid</p>
+</dd>
+<dt><strong>typeID</strong><span class="classifier">float&gt;0</span></dt><dd><p>Receptor-type ID.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>out: array_like</dt><dd><p>Matrix containing the unbinding rates at each occupied grid element.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Import libraries:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ampartrafficking.stochastic_model</span> <span class="k">as</span> <span class="nn">sm</span>
+</pre></div>
+</div>
+<p>Create and populate grid and calculate nearest neighbour matrix:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">kBU</span><span class="o">=</span><span class="mf">0.1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">typeID</span><span class="o">=</span><span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">N</span><span class="o">=</span><span class="mi">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">PSD</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">PSD</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="mi">20</span><span class="p">)]</span><span class="o">=</span><span class="n">typeID</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">NN</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">nearestNeighbours</span><span class="p">(</span><span class="n">PSD</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Plot:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">kBUcoop</span><span class="p">(</span><span class="n">kBU</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">9</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">typeID</span><span class="p">]</span><span class="o">*</span><span class="mi">9</span><span class="p">),</span> <span class="n">typeID</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;number of nearest neighbours&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;unbinding rate $k_</span><span class="si">{BU}</span><span class="s1">^</span><span class="si">{coop}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mf">2.25</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">PSD</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cbar</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;occupied (type)&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mf">2.25</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">NN</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cbar</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;nearest neighbours&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mf">2.25</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">kBUcoop</span><span class="p">(</span><span class="n">kBU</span><span class="p">,</span> <span class="n">NN</span><span class="p">,</span> <span class="n">PSD</span><span class="p">,</span> <span class="n">typeID</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cbar</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;unbinding rate $k_</span><span class="si">{BU}</span><span class="s1">^</span><span class="si">{coop}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<a class="reference internal image-reference" href="_images/example1_kBUcoop.png"><img alt="_images/example1_kBUcoop.png" src="_images/example1_kBUcoop.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="_images/example2_kBUcoop.png"><img alt="_images/example2_kBUcoop.png" src="_images/example2_kBUcoop.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="_images/example3_kBUcoop.png"><img alt="_images/example3_kBUcoop.png" src="_images/example3_kBUcoop.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="_images/example4_kBUcoop.png"><img alt="_images/example4_kBUcoop.png" src="_images/example4_kBUcoop.png" style="width: 45%;" /></a>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ampartrafficking.stochastic_model.kUBcoop">
+<code class="sig-prename descclassname">ampartrafficking.stochastic_model.</code><code class="sig-name descname">kUBcoop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">kUB</span></em>, <em class="sig-param"><span class="n">NN</span></em>, <em class="sig-param"><span class="n">PSD</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">16</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/stochastic_model.html#kUBcoop"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the cooperative binding rate per mobile receptor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>kUB</strong><span class="classifier">float</span></dt><dd><p>binding rate</p>
+</dd>
+<dt><strong>alpha</strong><span class="classifier">float, optional</span></dt><dd><p>By default alpha=16. Factor by which the fraction of occupied nearest neighbours increases the binding rate.</p>
+</dd>
+<dt><strong>NN</strong><span class="classifier">array_like</span></dt><dd><p>Matrix that contains the number of nearest neighbours for each grid element.</p>
+</dd>
+<dt><strong>PSD</strong><span class="classifier">array_like</span></dt><dd><p>Matrix representing the PSD grid</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>out: array_like</dt><dd><p>Matrix containing the binding rates at each unoccupied grid element.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Import libraries:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ampartrafficking.stochastic_model</span> <span class="k">as</span> <span class="nn">sm</span>
+</pre></div>
+</div>
+<p>Create and populate grid and calculate nearest neighbour matrix:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">kUB</span><span class="o">=</span><span class="mf">0.0005</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">N</span><span class="o">=</span><span class="mi">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">PSD</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">PSD</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="mi">20</span><span class="p">)]</span><span class="o">=</span><span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">NN</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">nearestNeighbours</span><span class="p">(</span><span class="n">PSD</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Plot:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">kUBcoop</span><span class="p">(</span><span class="n">kUB</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">9</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">9</span><span class="p">)))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;number of nearest neighbours&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;binding rate $k_</span><span class="si">{UB}</span><span class="s1">^</span><span class="si">{coop}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mf">2.25</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">PSD</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cbar</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;occupied (type)&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mf">2.25</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">NN</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cbar</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;nearest neighbours&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mf">2.25</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">kUBcoop</span><span class="p">(</span><span class="n">kUB</span><span class="p">,</span> <span class="n">NN</span><span class="p">,</span> <span class="n">PSD</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cbar</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;binding rate $k_</span><span class="si">{UB}</span><span class="s1">^</span><span class="si">{coop}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<a class="reference internal image-reference" href="_images/example1_kUBcoop.png"><img alt="_images/example1_kUBcoop.png" src="_images/example1_kUBcoop.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="_images/example2_kUBcoop.png"><img alt="_images/example2_kUBcoop.png" src="_images/example2_kUBcoop.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="_images/example3_kUBcoop.png"><img alt="_images/example3_kUBcoop.png" src="_images/example3_kUBcoop.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="_images/example4_kUBcoop.png"><img alt="_images/example4_kUBcoop.png" src="_images/example4_kUBcoop.png" style="width: 45%;" /></a>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ampartrafficking.stochastic_model.probabilityEval">
+<code class="sig-prename descclassname">ampartrafficking.stochastic_model.</code><code class="sig-name descname">probabilityEval</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Mub</span></em>, <em class="sig-param"><span class="n">Mbu</span></em>, <em class="sig-param"><span class="n">PSD</span></em>, <em class="sig-param"><span class="n">ID_basal</span></em>, <em class="sig-param"><span class="n">Mub_notBleached</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">Mbu_notBleached</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ID_notBleached</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/stochastic_model.html#probabilityEval"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the updated PSD Matrix and the corresponding number of receptors that got bound and unbound. To types, “basal” and “not bleached” can be considered, which is necessary when simulation FRAP.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Mub</strong><span class="classifier">array_like</span></dt><dd><p>Matrix containing binding probabilities for the type “basal”.</p>
+</dd>
+<dt><strong>Mbu</strong><span class="classifier">array_like</span></dt><dd><p>Matrix containing unbinding probabilities for the type “basal”.</p>
+</dd>
+<dt><strong>Mub_notBleached</strong><span class="classifier">array_like, optional</span></dt><dd><p>By default None. Matrix containing binding probabilities for the type “not bleached”.</p>
+</dd>
+<dt><strong>Mbu_notBleached</strong><span class="classifier">array_like, optional</span></dt><dd><p>By default None. Matrix containing unbinding probabilities for the type “not bleached”.</p>
+</dd>
+<dt><strong>PSD</strong><span class="classifier">array_like</span></dt><dd><p>Matrix representing the PSD grid and its bound receptors.</p>
+</dd>
+<dt><strong>ID_basal</strong><span class="classifier">float</span></dt><dd><p>Receptor ID of the basal pool.</p>
+</dd>
+<dt><strong>ID_notBleached: float</strong></dt><dd><p>Receptor ID of the not bleached pool.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>out: float, float, float, float, array_like</dt><dd><p>Number of receptors that got bound and unbound of the two types “basal” and “not bleached” and the updated PSD matrix.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Import libraries:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ampartrafficking.stochastic_model</span> <span class="k">as</span> <span class="nn">sm</span>
+</pre></div>
+</div>
+<p>Set parameters:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">U</span><span class="o">=</span><span class="mi">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">U_notBleached</span><span class="o">=</span><span class="mi">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kUB</span><span class="o">=</span><span class="mf">0.005</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kBU</span><span class="o">=</span><span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">N</span><span class="o">=</span><span class="mi">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ID_basal</span><span class="o">=</span><span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ID_notBleached</span><span class="o">=</span><span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span><span class="o">=</span><span class="mf">0.5</span>
+</pre></div>
+</div>
+<p>Create and populate grid and calculate nearest neighbour matrix:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">PSD</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">while</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">PSD</span><span class="p">)</span><span class="o">&lt;</span><span class="mi">20</span><span class="o">*</span><span class="n">ID_basal</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">i</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">j</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">if</span> <span class="n">PSD</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">PSD</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">ID_basal</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">while</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">PSD</span><span class="p">)</span><span class="o">&lt;</span><span class="mi">20</span><span class="o">*</span><span class="n">ID_basal</span><span class="o">+</span><span class="mi">20</span><span class="o">*</span><span class="n">ID_notBleached</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">i</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">j</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">if</span> <span class="n">PSD</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">PSD</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">ID_notBleached</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">NN</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">nearestNeighbours</span><span class="p">(</span><span class="n">PSD</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Plot PSD:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">PSD</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Calculate probability Matrices and update the PSD Matrix:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Mbu</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">kBUcoop</span><span class="p">(</span><span class="n">kBU</span><span class="p">,</span> <span class="n">NN</span><span class="p">,</span> <span class="n">PSD</span><span class="p">,</span> <span class="n">ID_basal</span><span class="p">)</span><span class="o">*</span><span class="n">dt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Mub</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">kUBcoop</span><span class="p">(</span><span class="n">kUB</span><span class="o">*</span><span class="n">U</span><span class="p">,</span> <span class="n">NN</span><span class="p">,</span> <span class="n">PSD</span><span class="p">)</span><span class="o">*</span><span class="n">dt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Mbu_notBleached</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">kBUcoop</span><span class="p">(</span><span class="n">kBU</span><span class="p">,</span> <span class="n">NN</span><span class="p">,</span> <span class="n">PSD</span><span class="p">,</span> <span class="n">ID_notBleached</span><span class="p">)</span><span class="o">*</span><span class="n">dt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Mub_notBleached</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">kUBcoop</span><span class="p">(</span><span class="n">kUB</span><span class="o">*</span><span class="n">U_notBleached</span><span class="p">,</span> <span class="n">NN</span><span class="p">,</span> <span class="n">PSD</span><span class="p">)</span><span class="o">*</span><span class="n">dt</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">PSD</span><span class="p">,</span><span class="n">dBoff</span><span class="p">,</span><span class="n">dBon</span><span class="p">,</span><span class="n">dBoff_notBleached</span><span class="p">,</span><span class="n">dBon_notBleached</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">probabilityEval</span><span class="p">(</span><span class="n">Mub</span><span class="p">,</span><span class="n">Mbu</span><span class="p">,</span><span class="n">PSD</span><span class="p">,</span><span class="n">ID_basal</span><span class="p">,</span><span class="n">Mub_notBleached</span><span class="p">,</span><span class="n">Mbu_notBleached</span><span class="p">,</span><span class="n">ID_notBleached</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Plot PSD:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">PSD</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Output: (left: before, right: after)</p>
+<a class="reference internal image-reference" href="_images/example1_probabilityEval.png"><img alt="_images/example1_probabilityEval.png" src="_images/example1_probabilityEval.png" style="width: 45%;" /></a>
+<a class="reference internal image-reference" href="_images/example2_probabilityEval.png"><img alt="_images/example2_probabilityEval.png" src="_images/example2_probabilityEval.png" style="width: 45%;" /></a>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ampartrafficking.stochastic_model.update_mobilePool">
+<code class="sig-prename descclassname">ampartrafficking.stochastic_model.</code><code class="sig-name descname">update_mobilePool</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">U</span></em>, <em class="sig-param"><span class="n">pin</span></em>, <em class="sig-param"><span class="n">pout</span></em>, <em class="sig-param"><span class="n">dBoff</span></em>, <em class="sig-param"><span class="n">dBon</span></em>, <em class="sig-param"><span class="n">U_notBleached</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">pin_notBleached</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">pout_notBleached</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dBoff_notBleached</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dBon_notBleached</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/stochastic_model.html#update_mobilePool"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Updates the value for the mobile receptor pool. When simulating FRAP, a second type “not bleached” is considered.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>U</strong><span class="classifier">float</span></dt><dd><p>Mobile AMPAR pool.</p>
+</dd>
+<dt><strong>pin</strong><span class="classifier">float</span></dt><dd><p>Probability of a receptor to enter the spine’s mobile pool.</p>
+</dd>
+<dt><strong>pout</strong><span class="classifier">float</span></dt><dd><p>Probability of a receptor to leave the spine’s mobile pool.</p>
+</dd>
+<dt><strong>dBoff</strong><span class="classifier">float</span></dt><dd><p>Number of receptors that got unbound from the PSD grid.</p>
+</dd>
+<dt><strong>dBon</strong><span class="classifier">float</span></dt><dd><p>Number of receptors that got bound to the PSD grid.</p>
+</dd>
+<dt><strong>U_notBleached</strong><span class="classifier">float, optional</span></dt><dd><p>Mobile AMPAR pool (bleached).</p>
+</dd>
+<dt><strong>pin_notBleached</strong><span class="classifier">float, optional</span></dt><dd><p>Probability of a not bleached receptor to enter the spine’s mobile pool.</p>
+</dd>
+<dt><strong>pout_notBleached</strong><span class="classifier">float, optional</span></dt><dd><p>Probability of a not bleached receptor to enter the spine’s mobile pool.</p>
+</dd>
+<dt><strong>dBoff_notBleached</strong><span class="classifier">float, optional</span></dt><dd><p>Number of not bleached receptors that got unbound from the PSD grid.</p>
+</dd>
+<dt><strong>dBon_notBleached</strong><span class="classifier">float, optional</span></dt><dd><p>Number of not bleached receptors that got bound to the PSD grid.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>out: float, float</dt><dd><p>U, U_notBleached.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ampartrafficking.stochastic_model.calcTimeStep">
+<code class="sig-prename descclassname">ampartrafficking.stochastic_model.</code><code class="sig-name descname">calcTimeStep</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">UFP_0</span></em>, <em class="sig-param"><span class="n">A_spine</span></em>, <em class="sig-param"><span class="n">kUB</span></em>, <em class="sig-param"><span class="n">alpha</span></em>, <em class="sig-param"><span class="n">kBU</span></em>, <em class="sig-param"><span class="n">kout</span></em>, <em class="sig-param"><span class="n">kin</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/stochastic_model.html#calcTimeStep"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns integration time step dt. By default simulations are carried out at dt=0.5s. If parameter choices require a smaller time step, dt is set to 0.25s. If dt is still too large, the simulation is cancelled and an error message is displayed. In this case dt needs to be set manually.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>UFP_0</strong><span class="classifier">float</span></dt><dd><p>Mobile receptor pool fixed points. Sets the influx of receptors into spine.</p>
+</dd>
+<dt><strong>A_spine</strong><span class="classifier">float</span></dt><dd><p>Spine surface area.</p>
+</dd>
+<dt><strong>kUB</strong><span class="classifier">float</span></dt><dd><p>bidning rate</p>
+</dd>
+<dt><strong>alpha</strong><span class="classifier">float</span></dt><dd><p>cooperativity factor for the binding</p>
+</dd>
+<dt><strong>kBU</strong><span class="classifier">float</span></dt><dd><p>unbidning rate</p>
+</dd>
+<dt><strong>kout</strong><span class="classifier">float</span></dt><dd><p>Total rate at which receptors exit the spine membrane (e.g. kout+kendo).</p>
+</dd>
+<dt><strong>kin</strong><span class="classifier">float</span></dt><dd><p>Total rate at which receptors enter the spine membrane (e.g. kexo*Sexo+kin).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>float</dt><dd><p>Integration time step dt.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-ampartrafficking.frap">
+<span id="frap"></span><h2>frap</h2>
+<p>Created on Thu Nov  5 15:35:31 2020</p>
+<p>&#64;author: Moritz</p>
+<dl class="py function">
+<dt id="ampartrafficking.frap.FRAP">
+<code class="sig-prename descclassname">ampartrafficking.frap.</code><code class="sig-name descname">FRAP</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">N_List</span></em>, <em class="sig-param"><span class="n">Conc_List</span></em>, <em class="sig-param"><span class="n">beta</span></em>, <em class="sig-param"><span class="n">alpha</span></em>, <em class="sig-param"><span class="n">kUB</span></em>, <em class="sig-param"><span class="n">kBU</span></em>, <em class="sig-param"><span class="n">duration</span></em>, <em class="sig-param"><span class="n">Nr_Trials</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ampartrafficking/frap.html#FRAP"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns evolution over time of photobleached and not photobleached mobile and bound receptors (FRAP simulation).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>N_List</strong><span class="classifier">array_like</span></dt><dd><p>List of PSD sizes P</p>
+</dd>
+<dt><strong>Conc_List</strong><span class="classifier">array_like</span></dt><dd><p>List of target fixed points for the mobile receptor concentration. Sets the influx of receptors into spine.</p>
+</dd>
+<dt><strong>beta</strong><span class="classifier">float</span></dt><dd><p>cooperativity factor for the unbinding. (Should be set to 1 or 0)</p>
+</dd>
+<dt><strong>alpha</strong><span class="classifier">float</span></dt><dd><p>cooperativity factor for the binding</p>
+</dd>
+<dt><strong>kUB</strong><span class="classifier">float</span></dt><dd><p>bidning rate</p>
+</dd>
+<dt><strong>kBU</strong><span class="classifier">float</span></dt><dd><p>unbidning rate</p>
+</dd>
+<dt><strong>duration</strong><span class="classifier">float</span></dt><dd><p>Duration of the simulation</p>
+</dd>
+<dt><strong>Nr_Trials</strong><span class="classifier">integer</span></dt><dd><p>Number of trials.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>B_N</strong><span class="classifier">array_like</span></dt><dd><p>Time evolution of bound receptors for different conditions and number of Trials; shape(len(N_List), len(Conc_List), Trials, duration/0.5+1)</p>
+</dd>
+<dt><strong>U_N</strong><span class="classifier">array_like</span></dt><dd><p>Time evolution of mobile receptors for different conditions and number of Trials; shape(len(N_List), len(Conc_List), Trials, duration/0.5+1)</p>
+</dd>
+<dt>B_notBleached_N</dt><dd><p>Time evolution of bound receptors not photobleached for different conditions and number of Trials; shape(len(N_List), len(Conc_List), Trials, duration/0.5+1)</p>
+</dd>
+<dt>U_notBleached_N</dt><dd><p>Time evolution of mobile receptors not photobleached for different conditions and number of Trials; shape(len(N_List), len(Conc_List), Trials, duration/0.5+1)</p>
+</dd>
+<dt><strong>PSD</strong><span class="classifier">array_like</span></dt><dd><p>Matrix representing the PSD grid and its receptors at the end of the simulation (bleached, not bleached).</p>
+</dd>
+<dt><strong>Time</strong><span class="classifier">arrayl_like</span></dt><dd><p>Time; shape(duration/0.5+1,)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Moritz F P Becker
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

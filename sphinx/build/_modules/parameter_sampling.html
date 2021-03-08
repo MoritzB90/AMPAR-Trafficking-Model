@@ -1,0 +1,453 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>parameter_sampling &mdash; AMPAR_Mean-Field-Model 02.11.2020 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> AMPAR_Mean-Field-Model
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">AMPAR_Mean-Field-Model</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>parameter_sampling</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for parameter_sampling</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Tue Nov 10 17:12:34 2020</span>
+
+<span class="sd">@author: Moritz</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">odeint</span>
+
+<span class="c1"># works for Fig4 and main but not Sphinx:</span>
+<span class="c1"># import sys</span>
+<span class="c1"># sys.path.append(&#39;../&#39;)</span>
+<span class="c1"># import ampartrafficking.rate_model as rm</span>
+
+<span class="c1">#works for main and Sphinx but not Fig4:</span>
+<span class="c1">#import rate_model as rm</span>
+
+<span class="c1"># works for Fig4 but not for main or Sphinx:</span>
+<span class="c1"># from . import rate_model as rm</span>
+
+<span class="c1"># works for Fig4 and main but not Sphinx:</span>
+<span class="c1"># import sys</span>
+<span class="c1"># sys.path.append(&#39;../&#39;)</span>
+<span class="c1"># from ampartrafficking import rate_model as rm</span>
+
+<div class="viewcode-block" id="parameterSampling"><a class="viewcode-back" href="../index.html#parameter_sampling.parameterSampling">[docs]</a><span class="k">def</span> <span class="nf">parameterSampling</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">Init</span><span class="p">,</span><span class="n">sLTP</span><span class="p">,</span><span class="n">Cooperativity</span><span class="p">,</span><span class="n">P</span><span class="p">,</span><span class="n">kin</span><span class="p">,</span><span class="n">kout</span><span class="p">,</span><span class="n">Trials</span><span class="p">,</span> <span class="n">kBU_max</span><span class="p">,</span><span class="n">aUB_max</span><span class="p">,</span><span class="n">TUB_max</span><span class="p">,</span><span class="n">kexo_max</span><span class="p">,</span><span class="n">aexo_max</span><span class="p">,</span><span class="n">Texo_max</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Returns evolution over time of bound AMPARs for normal E-LTP and LTP with exocytosis blockage for various Trials. Parameter values for exocytosis event, receptor binding and unbinding rate are drawn randomly for each Trial. Also, evolution over time of mobile receptors, binding rate and exocytosis event rate and spine area are returned as well as values for the baseline exocytosis event rate kexo0, the factor of change in exocytosis event rate amplitide during LTP-induction aexo and amplitude decay time constant Texo are returned for each Trial.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    t : array_like</span>
+<span class="sd">        Time over which the model is integrated.</span>
+<span class="sd">    Init : array_like</span>
+<span class="sd">        Initial state values for U, B and Sexo ([U(0),B(0),Sexo(0)]) .</span>
+<span class="sd">    sLTP : 0, 1</span>
+<span class="sd">        Specifies whether sLTP is accounted for (=1) or not (=0).</span>
+<span class="sd">    Cooperativity : 0, 1</span>
+<span class="sd">        Specifies whether cooperative recepotr binding is accounted for (=1) or not (=0).</span>
+<span class="sd">    P : float</span>
+<span class="sd">        Number of receptor binding sites</span>
+<span class="sd">    kin : float</span>
+<span class="sd">            Rate at which receptors hop from the dednritic membrane compartment onto the spine membrane compartment.</span>
+<span class="sd">    kout : float </span>
+<span class="sd">            Rate at which receptors hop from the spine membrane compartment onto the dendritic membrane compartment.</span>
+<span class="sd">    Trials : integer</span>
+<span class="sd">        Number of trials.</span>
+<span class="sd">    kBU_max : float</span>
+<span class="sd">        Maximum of the receptor unbinding rate. Values are drawn randomly between 0 and kBU_max. kUB0 is calculated from the unbinding rate (kUB0_(kBU)).</span>
+<span class="sd">    aUB_max : float</span>
+<span class="sd">        Maximum of the factor by which the receptor binding rate increases during LTP-induction. Values are drawn randomly between 0 and aUB_max.</span>
+<span class="sd">    TUB_max : float</span>
+<span class="sd">        Maximum of the decay time by which the receptor binding rate decreases to the baseline after LTP-induction. Values are drawn randomly between 0 and TUB_max.</span>
+<span class="sd">    kexo_max : float</span>
+<span class="sd">        Maximum of the baseline receptor exocytosis event rate kexo0. Values are drawn randomly between 0 and kexo_max. kendo is calculated from the exocytosis event rate (kendo_(kexo0)).</span>
+<span class="sd">    aexo_max : float</span>
+<span class="sd">        Maximum of the factor by which the receptor exocytosis event rate increases during LTP-induction. Values are drawn randomly between 0 and aexo_max.</span>
+<span class="sd">    Texo_max : float</span>
+<span class="sd">        Maximum of the decay time by which the receptor exocytosis event rate decreases to the baseline after LTP-induction. Values are drawn randomly between 0 and Texo_max.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    B_Tr : array_like</span>
+<span class="sd">        Time evolution of bound receptors during normal E-LTP for different Trials; shape(Trials, len(t))</span>
+<span class="sd">    B_ne_Tr : array_like</span>
+<span class="sd">        Time evolution of bound receptors during E-LTP with exocytosis blockage for different Trials; shape(Trials, len(t))</span>
+<span class="sd">    U_Tr : array_like</span>
+<span class="sd">        Time evolution of mobile receptors for different Trials; shape(Trials, len(t))</span>
+<span class="sd">    kUB_Tr : array_like</span>
+<span class="sd">        Time evolution of the receptor binding rate for different Trials; shape(Trials, len(t))</span>
+<span class="sd">    kexo_Tr : array_like</span>
+<span class="sd">        Time evolution of the receptor exocytosis event rate for different Trials; shape(Trials, len(t))</span>
+<span class="sd">    Aspine_Tr : array_like</span>
+<span class="sd">        Time evolution of the spine surface area for different Trials; shape(Trials, len(t))</span>
+<span class="sd">    kexo0_Tr : array_like</span>
+<span class="sd">        Values of the receptor exocytosis event rate at baseline for different Trials; shape(Trials)</span>
+<span class="sd">    aexo_Tr : array_like</span>
+<span class="sd">        Values of the factor by which the receptor exocytosis event rate increases during LTP-induction for different Trials; shape(Trials)</span>
+<span class="sd">    Texo_Tr : array_like</span>
+<span class="sd">        Values of the decay time by which the receptor exocytosis event rate decreases to the baseline after LTP-induction for different Trials; shape(Trials)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">kin_RE</span><span class="o">=</span><span class="mf">0.1</span>
+    <span class="n">kout_RE</span><span class="o">=</span><span class="mf">0.000615</span>
+    <span class="n">V0</span><span class="o">=</span><span class="mf">0.08</span>
+    <span class="n">A0</span><span class="o">=</span><span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">V0</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="n">kUB_Tr</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">kexo_Tr</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">B_Tr</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">U_Tr</span><span class="o">=</span><span class="p">[]</span>
+    
+    <span class="n">B_ne_Tr</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">U_ne_Tr</span><span class="o">=</span><span class="p">[]</span>
+    
+    <span class="n">kexo0_Tr</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">aexo_Tr</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">Texo_Tr</span><span class="o">=</span><span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Trials</span><span class="p">):</span>
+        
+        <span class="k">if</span> <span class="n">n</span><span class="o">%</span><span class="mi">100</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Trial:&#39;</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+        
+        <span class="c1">#E-LTP with exocytosis:</span>
+        <span class="n">kBU</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span><span class="o">*</span><span class="n">kBU_max</span>
+        <span class="n">kUB0</span><span class="o">=</span><span class="n">rm</span><span class="o">.</span><span class="n">kUB0_</span><span class="p">(</span><span class="n">Init</span><span class="p">,</span><span class="n">kBU</span><span class="p">,</span><span class="n">P</span><span class="p">,</span><span class="n">A0</span><span class="p">,</span><span class="n">Cooperativity</span><span class="p">)</span>
+            
+        <span class="n">a_UB</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span><span class="o">*</span><span class="n">aUB_max</span>
+        <span class="n">T_UB</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span><span class="o">*</span><span class="n">TUB_max</span>
+        <span class="n">kUB</span><span class="o">=</span><span class="n">rm</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">kUB0</span><span class="p">)</span>
+        <span class="n">kUB</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">rm</span><span class="o">.</span><span class="n">Stim_Resp</span><span class="p">,[</span><span class="mi">1</span><span class="p">,</span><span class="n">a_UB</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">T_UB</span><span class="p">])</span>
+        
+        <span class="n">kexo0</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span><span class="o">*</span><span class="n">kexo_max</span>
+        <span class="n">a_exo</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span><span class="o">*</span><span class="n">aexo_max</span>
+        <span class="n">T_exo</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span><span class="o">*</span><span class="n">Texo_max</span>
+        <span class="n">kexo</span><span class="o">=</span><span class="n">rm</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">kexo0</span><span class="p">)</span>
+        <span class="n">kexo</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">rm</span><span class="o">.</span><span class="n">Stim_Resp</span><span class="p">,[</span><span class="mi">1</span><span class="p">,</span><span class="n">a_exo</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="n">T_exo</span><span class="p">])</span>
+        <span class="n">kendo</span><span class="o">=</span><span class="n">rm</span><span class="o">.</span><span class="n">kendo_</span><span class="p">(</span><span class="n">Init</span><span class="p">,</span><span class="n">kexo0</span><span class="p">,</span><span class="n">kin</span><span class="p">,</span><span class="n">kout</span><span class="p">,</span><span class="n">A0</span><span class="p">)</span>
+            
+        <span class="n">Vspine</span><span class="o">=</span><span class="n">rm</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">V0</span><span class="p">)</span>
+        <span class="n">Vspine</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">rm</span><span class="o">.</span><span class="n">DV</span><span class="p">,[</span><span class="n">V0</span><span class="p">,</span><span class="kc">True</span><span class="p">])</span>
+        
+        <span class="n">Model</span><span class="o">=</span><span class="n">rm</span><span class="o">.</span><span class="n">Model_system</span><span class="p">()</span>
+        
+        <span class="n">solve</span><span class="p">,</span><span class="n">infodict</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">Model</span><span class="o">.</span><span class="n">odes</span><span class="p">,</span><span class="n">Init</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">Vspine</span><span class="p">,</span><span class="n">P</span><span class="p">,</span><span class="n">kin</span><span class="p">,</span><span class="n">kout</span><span class="p">,</span><span class="n">kexo</span><span class="p">,</span><span class="n">kendo</span><span class="p">,</span><span class="n">kUB</span><span class="p">,</span><span class="n">kBU</span><span class="p">,</span><span class="n">Cooperativity</span><span class="p">,</span><span class="n">sLTP</span><span class="p">,</span><span class="n">kin_RE</span><span class="p">,</span><span class="n">kout_RE</span><span class="p">),</span><span class="n">full_output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+        
+        <span class="n">kUB</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        <span class="n">kUB_Tr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kUB</span><span class="o">.</span><span class="n">current_value</span><span class="p">)</span>
+        <span class="n">kexo</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        <span class="n">kexo_Tr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kexo</span><span class="o">.</span><span class="n">current_value</span><span class="p">)</span>
+        <span class="n">B_Tr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">solve</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">U_Tr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">solve</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        
+        <span class="n">kexo0_Tr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kexo0</span><span class="p">)</span>
+        <span class="n">aexo_Tr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a_exo</span><span class="p">)</span>
+        <span class="n">Texo_Tr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">T_exo</span><span class="p">)</span>
+    
+    
+        <span class="c1">#E-LTP without exocytosis:</span>
+        <span class="n">kexo</span><span class="o">=</span><span class="n">rm</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">kexo</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">rm</span><span class="o">.</span><span class="n">Stim_Resp</span><span class="p">,[</span><span class="mi">1</span><span class="p">,</span><span class="n">a_exo</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="n">T_exo</span><span class="p">])</span>
+        <span class="n">Vspine</span><span class="o">=</span><span class="n">rm</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">V0</span><span class="p">)</span>
+        <span class="n">Vspine</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">rm</span><span class="o">.</span><span class="n">DV</span><span class="p">,[</span><span class="n">V0</span><span class="p">,</span><span class="kc">False</span><span class="p">])</span>
+        
+        <span class="n">Model2</span><span class="o">=</span><span class="n">rm</span><span class="o">.</span><span class="n">Model_system</span><span class="p">()</span>
+        
+        <span class="n">solve2</span><span class="p">,</span><span class="n">infodict2</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">Model2</span><span class="o">.</span><span class="n">odes</span><span class="p">,</span><span class="n">Init</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">Vspine</span><span class="p">,</span><span class="n">P</span><span class="p">,</span><span class="n">kin</span><span class="p">,</span><span class="n">kout</span><span class="p">,</span><span class="n">kexo</span><span class="p">,</span><span class="n">kendo</span><span class="p">,</span><span class="n">kUB</span><span class="p">,</span><span class="n">kBU</span><span class="p">,</span><span class="n">Cooperativity</span><span class="p">,</span><span class="n">sLTP</span><span class="p">,</span><span class="n">kin_RE</span><span class="p">,</span><span class="n">kout_RE</span><span class="p">),</span><span class="n">full_output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+        <span class="n">B_ne_Tr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">solve2</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">U_ne_Tr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">solve2</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        
+        
+    <span class="n">B_Tr</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">B_Tr</span><span class="p">)</span>
+    <span class="n">B_ne_Tr</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">B_ne_Tr</span><span class="p">)</span>
+    <span class="n">U_Tr</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">U_Tr</span><span class="p">)</span>
+    <span class="n">kUB_Tr</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">kUB_Tr</span><span class="p">)</span>
+    <span class="n">kexo_Tr</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">kexo_Tr</span><span class="p">)</span>
+    
+    <span class="n">kexo0_Tr</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">kexo0_Tr</span><span class="p">)</span>
+    <span class="n">aexo_Tr</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">aexo_Tr</span><span class="p">)</span>
+    <span class="n">Texo_Tr</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Texo_Tr</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">sLTP</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">Vspine</span><span class="o">=</span><span class="n">rm</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">V0</span><span class="p">)</span>
+        <span class="n">Vspine</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">rm</span><span class="o">.</span><span class="n">DV</span><span class="p">,[</span><span class="n">V0</span><span class="p">,</span><span class="kc">True</span><span class="p">])</span>
+        <span class="n">Vspine</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        <span class="n">Aspine_Tr</span><span class="o">=</span><span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">Vspine</span><span class="o">.</span><span class="n">current_value</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">Aspine_Tr</span><span class="o">=</span><span class="n">A0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+    
+    <span class="k">return</span> <span class="n">B_Tr</span><span class="p">,</span><span class="n">B_ne_Tr</span><span class="p">,</span> <span class="n">U_Tr</span><span class="p">,</span> <span class="n">kUB_Tr</span><span class="p">,</span><span class="n">kexo_Tr</span><span class="p">,</span><span class="n">Aspine_Tr</span><span class="p">,</span> <span class="n">kexo0_Tr</span><span class="p">,</span><span class="n">aexo_Tr</span><span class="p">,</span><span class="n">Texo_Tr</span></div>
+
+
+<div class="viewcode-block" id="ELTP"><a class="viewcode-back" href="../index.html#parameter_sampling.ELTP">[docs]</a><span class="k">def</span> <span class="nf">ELTP</span><span class="p">(</span><span class="n">Time</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns time evolution of EPSPs during E-LTP in % of baseline. The function has been fitted to data from Barco et al. 2002.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Time : array_like</span>
+<span class="sd">        Time in s.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Time evolution of EPSPs during E-LTP in % of baseline.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">rm</span><span class="o">.</span><span class="n">Stim_Resp</span><span class="p">(</span><span class="n">Time</span><span class="p">,</span><span class="mf">0.98</span><span class="p">,</span><span class="mf">2.53</span><span class="p">,</span><span class="mf">82.13</span><span class="p">,</span><span class="mf">2.35</span><span class="o">*</span><span class="mi">10</span><span class="o">**-</span><span class="mi">7</span><span class="p">)</span><span class="o">+</span><span class="n">rm</span><span class="o">.</span><span class="n">Stim_Resp</span><span class="p">(</span><span class="n">Time</span><span class="p">,</span><span class="o">-</span><span class="mf">0.02</span><span class="p">,</span><span class="mf">0.97</span><span class="p">,</span><span class="mf">3445.37</span><span class="p">,</span><span class="mf">128.40</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LTPnoExo"><a class="viewcode-back" href="../index.html#parameter_sampling.LTPnoExo">[docs]</a><span class="k">def</span> <span class="nf">LTPnoExo</span><span class="p">(</span><span class="n">Time</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns time evolution of EPSPs during LTP with exocytosis blockage in % of baseline. The function has been fitted to data from Penn et al. 2017.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Time : array_like</span>
+<span class="sd">        Time in s.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Time evolution of EPSPs during LTP with exocytosis blockage in % of baseline.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">rm</span><span class="o">.</span><span class="n">Stim_Resp</span><span class="p">(</span><span class="n">Time</span><span class="p">,</span><span class="mf">0.84</span><span class="p">,</span><span class="mf">1.85</span><span class="p">,</span><span class="mf">41.62</span><span class="p">,</span><span class="mf">18.12</span><span class="p">)</span><span class="o">+</span><span class="n">rm</span><span class="o">.</span><span class="n">Stim_Resp</span><span class="p">(</span><span class="n">Time</span><span class="p">,</span><span class="o">-</span><span class="mf">0.16</span><span class="p">,</span><span class="mf">0.57</span><span class="p">,</span><span class="mf">605.16</span><span class="p">,</span><span class="mf">41.62</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Matching"><a class="viewcode-back" href="../index.html#parameter_sampling.Matching">[docs]</a><span class="k">def</span> <span class="nf">Matching</span><span class="p">(</span><span class="n">B_Basal</span><span class="p">,</span><span class="n">B_nE</span><span class="p">,</span><span class="n">Trials</span><span class="p">,</span><span class="n">Time</span><span class="p">,</span><span class="n">BFP</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the indices and distance measure for the 0.5% of Trials that best match with experimental data from Barco et al. 2002 and Penn et al. 2017.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    B_Basal : array_like</span>
+<span class="sd">        Time evolution of bound AMPARs during normal E-LTP for different Trials (shape(Trials,t)).</span>
+<span class="sd">    B_nE : array_like</span>
+<span class="sd">        Time evolution of bound AMPARs during LTP with exocytosis blockage for different Trials (shape(Trials,len(Time))).</span>
+<span class="sd">    Trials : int</span>
+<span class="sd">        Number of trials.</span>
+<span class="sd">    Time : array_like</span>
+<span class="sd">        Time in s.</span>
+<span class="sd">    BFP : float</span>
+<span class="sd">        Fixed point/Basline level of the number of bound receptors.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    GoodMatch_index : array_like</span>
+<span class="sd">        Indices of the 0.5% of Trials that best match with experimental data.</span>
+<span class="sd">    GoodMatch_Value : array_like</span>
+<span class="sd">        Distance measure of the 0.5% of Trials that best match with experimental data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">MinOutput</span><span class="o">=</span><span class="n">Trials</span><span class="o">/</span><span class="mi">200</span><span class="c1"># 100# </span>
+
+    <span class="n">B_Basal_Ref</span><span class="o">=</span><span class="n">ELTP</span><span class="p">(</span><span class="n">Time</span><span class="p">)</span><span class="o">*</span><span class="n">BFP</span>
+    <span class="n">B_nE_Ref</span><span class="o">=</span><span class="n">LTPnoExo</span><span class="p">(</span><span class="n">Time</span><span class="p">)</span><span class="o">*</span><span class="n">BFP</span>
+
+    <span class="n">DeltaT</span><span class="o">=</span><span class="n">Time</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">Time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">tolerance_B</span><span class="o">=</span><span class="n">BFP</span><span class="o">/</span><span class="mi">100</span>
+    
+    <span class="n">counter</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">while</span> <span class="n">counter</span><span class="o">&lt;</span><span class="n">MinOutput</span><span class="p">:</span>
+        <span class="n">counter</span><span class="o">=</span><span class="mi">0</span>
+        <span class="n">tolerance_B</span><span class="o">+=</span><span class="n">BFP</span><span class="o">/</span><span class="mi">2500</span>
+
+        <span class="n">Dist</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">B_Basal_Ref</span><span class="o">-</span><span class="n">B_Basal</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">DeltaT</span><span class="o">/</span><span class="p">(</span><span class="n">Time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">Time</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">B_nE_Ref</span><span class="o">-</span><span class="n">B_nE</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">DeltaT</span><span class="o">/</span><span class="p">(</span><span class="n">Time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">Time</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        
+        
+        <span class="n">counter</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Dist</span><span class="o">&lt;</span><span class="n">tolerance_B</span><span class="p">)</span>
+                
+        <span class="k">if</span> <span class="n">counter</span><span class="o">&gt;=</span><span class="n">MinOutput</span><span class="p">:</span>
+            <span class="n">ii</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">Dist</span><span class="o">&lt;</span><span class="n">tolerance_B</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">GoodMatch_index</span><span class="o">=</span><span class="n">ii</span>
+            <span class="n">GoodMatch_Value</span><span class="o">=</span><span class="n">Dist</span><span class="p">[</span><span class="n">Dist</span><span class="o">&lt;</span><span class="n">tolerance_B</span><span class="p">]</span>
+                
+    <span class="k">return</span> <span class="n">GoodMatch_index</span><span class="p">,</span> <span class="n">GoodMatch_Value</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Moritz F P Becker
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

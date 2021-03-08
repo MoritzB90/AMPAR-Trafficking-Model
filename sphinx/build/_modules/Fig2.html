@@ -1,0 +1,514 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Fig2 &mdash; AMPAR_Mean-Field-Model 02.11.2020 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> AMPAR_Mean-Field-Model
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">AMPAR_Mean-Field-Model</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>Fig2</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for Fig2</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Tue Nov  3 16:37:38 2020</span>
+
+<span class="sd">@author: Moritz</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">&quot;&quot;&quot;Fig 2</span>
+
+<span class="sd">This script reproduces the plots seen in Fig 2 of &quot;The biophysical basis underlying the maintenance of early phase long-term potentiation&quot;.</span>
+
+<span class="sd">This script requires that `numpy`,`scipy.integrate`,`matplotlib` and `seaborn` are installed within the Python environment you are running this script in.</span>
+
+<span class="sd">This file can also be imported as a module and contains the following</span>
+<span class="sd">functions:</span>
+
+<span class="sd">    * Stim_Resp - returns a function describing the response of a parameter to a stimulus.</span>
+<span class="sd">    * DV - returns a function describing the spine volume change during sLTP.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">odeint</span>
+<span class="kn">import</span> <span class="nn">mf</span> <span class="k">as</span> <span class="nn">mf</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;svg.fonttype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span>
+<span class="kn">from</span> <span class="nn">matplotlib.font_manager</span> <span class="kn">import</span> <span class="n">FontProperties</span>
+<span class="n">fontLgd</span> <span class="o">=</span> <span class="n">FontProperties</span><span class="p">()</span>
+<span class="n">fontLgd</span><span class="o">.</span><span class="n">set_size</span><span class="p">(</span><span class="s1">&#39;x-small&#39;</span><span class="p">)</span>
+
+
+<span class="c1">#%%Define functions for parameter stimulus response and structural plasticity:</span>
+
+<div class="viewcode-block" id="Stim_Resp"><a class="viewcode-back" href="../index.html#Fig2.Stim_Resp">[docs]</a><span class="k">def</span> <span class="nf">Stim_Resp</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">a0</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns a function describing the response of a parameter to a stimulus.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    t : float</span>
+<span class="sd">        time passed since induction of LTP</span>
+<span class="sd">    a0 : float</span>
+<span class="sd">        baseline of the parameter (Should usually be set to 1). </span>
+<span class="sd">    a : float</span>
+<span class="sd">        Parameter amplitude during LTP induction</span>
+<span class="sd">    b : float</span>
+<span class="sd">        time constant</span>
+<span class="sd">    c : float</span>
+<span class="sd">        time constant</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        current factor of parameter change. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">A</span><span class="o">=</span><span class="p">(</span><span class="n">b</span><span class="o">/</span><span class="n">c</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">c</span><span class="o">/</span><span class="p">(</span><span class="n">c</span><span class="o">-</span><span class="n">b</span><span class="p">))</span><span class="o">-</span><span class="p">(</span><span class="n">b</span><span class="o">/</span><span class="n">c</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">b</span><span class="o">/</span><span class="p">(</span><span class="n">c</span><span class="o">-</span><span class="n">b</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">a0</span><span class="o">+</span><span class="n">a</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">t</span><span class="o">/</span><span class="n">b</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">t</span><span class="o">/</span><span class="n">c</span><span class="p">))</span><span class="o">/</span><span class="n">A</span></div>
+
+<div class="viewcode-block" id="DV"><a class="viewcode-back" href="../index.html#Fig2.DV">[docs]</a><span class="k">def</span> <span class="nf">DV</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V0</span><span class="p">,</span><span class="n">exocytosis</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns a function describing the spine volume change during sLTP.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    t : float</span>
+<span class="sd">        time passed since induction of LTP</span>
+<span class="sd">    V0 : float</span>
+<span class="sd">        initial spine volume. </span>
+<span class="sd">    exocytosis : True, False</span>
+<span class="sd">        States whether exocytosis is blocked or not. Make sure that the boolean value is chosen in agreement with the definition of kexo.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        current factor of spine volume change. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">DV_long_</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="n">a</span><span class="o">=</span><span class="mi">299</span>
+        <span class="n">b</span><span class="o">=</span><span class="mf">0.102</span>
+        <span class="n">c</span><span class="o">=-</span><span class="mf">0.9</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">/</span><span class="n">b</span><span class="p">)</span><span class="o">+</span><span class="n">c</span><span class="p">)</span><span class="o">/</span><span class="mi">100</span>
+    
+    <span class="k">if</span> <span class="n">exocytosis</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+        <span class="n">DVlong</span><span class="o">=</span><span class="n">DV_long_</span><span class="p">(</span><span class="n">V0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">DVlong</span><span class="o">=</span><span class="mi">0</span>
+        
+    <span class="n">a0_1</span><span class="o">=</span><span class="mi">1</span>
+    <span class="n">a_1</span><span class="o">=</span><span class="mi">1</span><span class="o">+</span><span class="mf">1.75</span><span class="o">*</span><span class="n">DVlong</span>
+    <span class="n">b_1</span><span class="o">=</span><span class="mi">250</span>
+    <span class="n">c_1</span><span class="o">=</span><span class="mi">5</span>
+    
+    <span class="n">a0_2</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">a_2</span><span class="o">=</span><span class="n">DVlong</span>
+    <span class="n">b_2</span><span class="o">=</span><span class="mi">3000</span>
+    <span class="n">c_2</span><span class="o">=</span><span class="mi">500</span>
+    
+    <span class="k">return</span> <span class="n">Stim_Resp</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">a0_1</span><span class="p">,</span><span class="n">a_1</span><span class="p">,</span><span class="n">b_1</span><span class="p">,</span><span class="n">c_1</span><span class="p">)</span><span class="o">+</span><span class="n">Stim_Resp</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">a0_2</span><span class="p">,</span><span class="n">a_2</span><span class="p">,</span><span class="n">b_2</span><span class="p">,</span><span class="n">c_2</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+
+    
+    <span class="c1">#Color palettes used in plots:</span>
+        
+    <span class="n">col1</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">dark_palette</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s2">&quot;colorblind&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span><span class="mi">4</span><span class="p">)[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">col2</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">dark_palette</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s2">&quot;colorblind&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span><span class="mi">4</span><span class="p">)[</span><span class="mi">3</span><span class="p">]</span>
+    
+    <span class="c1">#%%</span>
+    
+    <span class="c1">#Import experimental Data for comparison with the model. Taken from Penn et al 2017 and Barco et al. 2002 (see Paper for reference details):</span>
+    
+    <span class="n">Penn2017_x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;Data</span><span class="se">\\</span><span class="s2">Penn2017_x.csv&quot;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+    <span class="n">Penn2017_y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;Data</span><span class="se">\\</span><span class="s2">Penn2017_y.csv&quot;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+    <span class="n">Barco2002_x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;Data</span><span class="se">\\</span><span class="s2">Barco2002_x.csv&quot;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+    <span class="n">Barco2002_y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;Data</span><span class="se">\\</span><span class="s2">Barco2002_y.csv&quot;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+
+    <span class="c1">#%%</span>
+    
+    <span class="c1">#Set parameter values and initial conditions:</span>
+    
+    <span class="n">Init</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">13</span><span class="p">]</span>
+    
+    <span class="n">P</span><span class="o">=</span><span class="mi">70</span>
+    <span class="n">kin</span><span class="o">=</span><span class="mf">0.2</span>
+    <span class="n">kout</span><span class="o">=</span><span class="mf">0.018</span>
+    <span class="n">kexo0</span><span class="o">=</span><span class="mf">0.0018</span>
+    <span class="n">kendo</span><span class="o">=</span><span class="mf">0.0021</span>
+    <span class="n">kBU</span><span class="o">=</span><span class="mf">0.1</span>
+    <span class="n">kin_RE</span><span class="o">=</span><span class="mf">0.1</span>
+    <span class="n">kout_RE</span><span class="o">=</span><span class="mf">0.00769</span>
+    <span class="n">kexo0</span><span class="o">=</span><span class="mf">0.0018</span>
+    <span class="n">V0</span><span class="o">=</span><span class="mf">0.08</span>
+    
+    <span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">130</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+    
+    <span class="c1">#%%</span>
+    
+    <span class="c1">#Basic AMPAR trafficking</span>
+    
+    <span class="n">sLTP</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">Cooperativity</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">kUB0</span><span class="o">=</span><span class="mf">0.0036</span>
+    
+    <span class="c1">#E-LTP with exocytosis:</span>
+    <span class="n">kUB</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">kUB0</span><span class="p">)</span>
+    <span class="n">kUB</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">Stim_Resp</span><span class="p">,[</span><span class="mi">1</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">60</span><span class="p">])</span>
+    <span class="n">kexo</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">kexo0</span><span class="p">)</span>
+    <span class="n">kexo</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">Stim_Resp</span><span class="p">,[</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">60</span><span class="p">])</span>
+    <span class="n">Vspine</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">V0</span><span class="p">)</span>
+    <span class="n">Vspine</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">DV</span><span class="p">,[</span><span class="n">V0</span><span class="p">,</span><span class="kc">True</span><span class="p">])</span>
+    
+    <span class="n">Model</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Model_system</span><span class="p">()</span>
+    
+    <span class="n">solve</span><span class="p">,</span><span class="n">infodict</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">Model</span><span class="o">.</span><span class="n">odes</span><span class="p">,</span><span class="n">Init</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">Vspine</span><span class="p">,</span><span class="n">P</span><span class="p">,</span><span class="n">kin</span><span class="p">,</span><span class="n">kout</span><span class="p">,</span><span class="n">kexo</span><span class="p">,</span><span class="n">kendo</span><span class="p">,</span><span class="n">kUB</span><span class="p">,</span><span class="n">kBU</span><span class="p">,</span><span class="n">Cooperativity</span><span class="p">,</span><span class="n">sLTP</span><span class="p">,</span><span class="n">kin_RE</span><span class="p">,</span><span class="n">kout_RE</span><span class="p">),</span><span class="n">full_output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1">#E-LTP without exocytosis:</span>
+    <span class="n">kexo</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">kexo</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">Stim_Resp</span><span class="p">,[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">60</span><span class="p">])</span>
+    <span class="n">Vspine</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">V0</span><span class="p">)</span>
+    <span class="n">Vspine</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">DV</span><span class="p">,[</span><span class="n">V0</span><span class="p">,</span><span class="kc">False</span><span class="p">])</span>
+    
+    <span class="n">Model</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Model_system</span><span class="p">()</span>
+    
+    <span class="n">solve2</span><span class="p">,</span><span class="n">infodict2</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">Model</span><span class="o">.</span><span class="n">odes</span><span class="p">,</span><span class="n">Init</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">Vspine</span><span class="p">,</span><span class="n">P</span><span class="p">,</span><span class="n">kin</span><span class="p">,</span><span class="n">kout</span><span class="p">,</span><span class="n">kexo</span><span class="p">,</span><span class="n">kendo</span><span class="p">,</span><span class="n">kUB</span><span class="p">,</span><span class="n">kBU</span><span class="p">,</span><span class="n">Cooperativity</span><span class="p">,</span><span class="n">sLTP</span><span class="p">,</span><span class="n">kin_RE</span><span class="p">,</span><span class="n">kout_RE</span><span class="p">),</span><span class="n">full_output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    
+    <span class="n">fig</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">Barco2002_x</span><span class="p">,</span><span class="n">Barco2002_y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;E-LTP&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">Penn2017_x</span><span class="p">,</span><span class="n">Penn2017_y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;LTP, $k_</span><span class="si">{exo}</span><span class="s1">=0$&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span><span class="n">solve</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">20</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">col1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Basic Model&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span><span class="n">solve2</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">20</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">col2</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Basic Model, $k_</span><span class="si">{exo}</span><span class="s1">=0$&#39;</span><span class="p">)</span>
+    <span class="n">lgd</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.65</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower left&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="n">borderaxespad</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">prop</span><span class="o">=</span><span class="n">fontLgd</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (min)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Bound AMPARs $B$ (%)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">130</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    
+    
+    <span class="c1">#%%</span>
+    
+    <span class="c1">#sLTP</span>
+    
+    <span class="n">sLTP</span><span class="o">=</span><span class="mi">1</span>
+    <span class="n">Cooperativity</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">kUB0</span><span class="o">=</span><span class="mf">0.0036</span>
+    
+    <span class="c1">#E-LTP with exocytosis:</span>
+    <span class="n">kUB</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">kUB0</span><span class="p">)</span>
+    <span class="n">kUB</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">Stim_Resp</span><span class="p">,[</span><span class="mi">1</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">60</span><span class="p">])</span>
+    <span class="n">kexo</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">kexo0</span><span class="p">)</span>
+    <span class="n">kexo</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">Stim_Resp</span><span class="p">,[</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">60</span><span class="p">])</span>
+    <span class="n">Vspine</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">V0</span><span class="p">)</span>
+    <span class="n">Vspine</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">DV</span><span class="p">,[</span><span class="n">V0</span><span class="p">,</span><span class="kc">True</span><span class="p">])</span>
+    
+    <span class="n">Model</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Model_system</span><span class="p">()</span>
+    
+    <span class="n">solve</span><span class="p">,</span><span class="n">infodict</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">Model</span><span class="o">.</span><span class="n">odes</span><span class="p">,</span><span class="n">Init</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">Vspine</span><span class="p">,</span><span class="n">P</span><span class="p">,</span><span class="n">kin</span><span class="p">,</span><span class="n">kout</span><span class="p">,</span><span class="n">kexo</span><span class="p">,</span><span class="n">kendo</span><span class="p">,</span><span class="n">kUB</span><span class="p">,</span><span class="n">kBU</span><span class="p">,</span><span class="n">Cooperativity</span><span class="p">,</span><span class="n">sLTP</span><span class="p">,</span><span class="n">kin_RE</span><span class="p">,</span><span class="n">kout_RE</span><span class="p">),</span><span class="n">full_output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1">#E-LTP without exocytosis:</span>
+    <span class="n">kexo</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">kexo</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">Stim_Resp</span><span class="p">,[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">60</span><span class="p">])</span>
+    <span class="n">Vspine</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">V0</span><span class="p">)</span>
+    <span class="n">Vspine</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">DV</span><span class="p">,[</span><span class="n">V0</span><span class="p">,</span><span class="kc">False</span><span class="p">])</span>
+    
+    <span class="n">Model</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Model_system</span><span class="p">()</span>
+    
+    <span class="n">solve2</span><span class="p">,</span><span class="n">infodict2</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">Model</span><span class="o">.</span><span class="n">odes</span><span class="p">,</span><span class="n">Init</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">Vspine</span><span class="p">,</span><span class="n">P</span><span class="p">,</span><span class="n">kin</span><span class="p">,</span><span class="n">kout</span><span class="p">,</span><span class="n">kexo</span><span class="p">,</span><span class="n">kendo</span><span class="p">,</span><span class="n">kUB</span><span class="p">,</span><span class="n">kBU</span><span class="p">,</span><span class="n">Cooperativity</span><span class="p">,</span><span class="n">sLTP</span><span class="p">,</span><span class="n">kin_RE</span><span class="p">,</span><span class="n">kout_RE</span><span class="p">),</span><span class="n">full_output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    
+    <span class="n">fig</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">Barco2002_x</span><span class="p">,</span><span class="n">Barco2002_y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">Penn2017_x</span><span class="p">,</span><span class="n">Penn2017_y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span><span class="n">solve</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">20</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">col1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sLTP Model&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span><span class="n">solve2</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">20</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">col2</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sLTP Model, $k_</span><span class="si">{exo}</span><span class="s1">=0$&#39;</span><span class="p">)</span>
+    <span class="n">lgd</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.65</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower left&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="n">borderaxespad</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">prop</span><span class="o">=</span><span class="n">fontLgd</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (min)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Bound AMPARs $B$ (%)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">130</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    
+    <span class="c1">#%%</span>
+    
+    <span class="c1">#Cooperative receptor binding</span>
+    
+    <span class="n">sLTP</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">Cooperativity</span><span class="o">=</span><span class="mi">1</span>
+    <span class="n">kUB0</span><span class="o">=</span><span class="mf">0.0005</span><span class="c1">#0.0036#</span>
+    
+    <span class="c1">#E-LTP with exocytosis:</span>
+    <span class="n">kUB</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">kUB0</span><span class="p">)</span>
+    <span class="n">kUB</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">Stim_Resp</span><span class="p">,[</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">60</span><span class="p">])</span>
+    <span class="n">kexo</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">kexo0</span><span class="p">)</span>
+    <span class="n">kexo</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">Stim_Resp</span><span class="p">,[</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">60</span><span class="p">])</span>
+    <span class="n">Vspine</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">V0</span><span class="p">)</span>
+    <span class="n">Vspine</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">DV</span><span class="p">,[</span><span class="n">V0</span><span class="p">,</span><span class="kc">True</span><span class="p">])</span>
+    
+    <span class="n">Model</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Model_system</span><span class="p">()</span>
+    
+    <span class="n">solve</span><span class="p">,</span><span class="n">infodict</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">Model</span><span class="o">.</span><span class="n">odes</span><span class="p">,</span><span class="n">Init</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">Vspine</span><span class="p">,</span><span class="n">P</span><span class="p">,</span><span class="n">kin</span><span class="p">,</span><span class="n">kout</span><span class="p">,</span><span class="n">kexo</span><span class="p">,</span><span class="n">kendo</span><span class="p">,</span><span class="n">kUB</span><span class="p">,</span><span class="n">kBU</span><span class="p">,</span><span class="n">Cooperativity</span><span class="p">,</span><span class="n">sLTP</span><span class="p">,</span><span class="n">kin_RE</span><span class="p">,</span><span class="n">kout_RE</span><span class="p">),</span><span class="n">full_output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1">#E-LTP without exocytosis:</span>
+    <span class="n">kexo</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">kexo</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">Stim_Resp</span><span class="p">,[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">60</span><span class="p">])</span>
+    <span class="n">Vspine</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">V0</span><span class="p">)</span>
+    <span class="n">Vspine</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">DV</span><span class="p">,[</span><span class="n">V0</span><span class="p">,</span><span class="kc">False</span><span class="p">])</span>
+    
+    <span class="n">Model</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Model_system</span><span class="p">()</span>
+    
+    <span class="n">solve2</span><span class="p">,</span><span class="n">infodict2</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">Model</span><span class="o">.</span><span class="n">odes</span><span class="p">,</span><span class="n">Init</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">Vspine</span><span class="p">,</span><span class="n">P</span><span class="p">,</span><span class="n">kin</span><span class="p">,</span><span class="n">kout</span><span class="p">,</span><span class="n">kexo</span><span class="p">,</span><span class="n">kendo</span><span class="p">,</span><span class="n">kUB</span><span class="p">,</span><span class="n">kBU</span><span class="p">,</span><span class="n">Cooperativity</span><span class="p">,</span><span class="n">sLTP</span><span class="p">,</span><span class="n">kin_RE</span><span class="p">,</span><span class="n">kout_RE</span><span class="p">),</span><span class="n">full_output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    
+    <span class="n">fig</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">Barco2002_x</span><span class="p">,</span><span class="n">Barco2002_y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">Penn2017_x</span><span class="p">,</span><span class="n">Penn2017_y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span><span class="n">solve</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">20</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">col1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Coop. Model&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span><span class="n">solve2</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">20</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">col2</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Coop. Model, $k_</span><span class="si">{exo}</span><span class="s1">=0$&#39;</span><span class="p">)</span>
+    <span class="n">lgd</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.65</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower left&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="n">borderaxespad</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">prop</span><span class="o">=</span><span class="n">fontLgd</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (min)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Bound AMPARs $B$ (%)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">130</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    
+    
+    <span class="c1">#%%</span>
+    
+    <span class="c1">#sLTP + cooperative receptor binding</span>
+    
+    <span class="n">sLTP</span><span class="o">=</span><span class="mi">1</span>
+    <span class="n">Cooperativity</span><span class="o">=</span><span class="mi">1</span>
+    <span class="n">kUB0</span><span class="o">=</span><span class="mf">0.0005</span><span class="c1">#0.0036#</span>
+    
+    <span class="c1">#E-LTP with exocytosis:</span>
+    <span class="n">kUB</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">kUB0</span><span class="p">)</span>
+    <span class="n">kUB</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">Stim_Resp</span><span class="p">,[</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">60</span><span class="p">])</span>
+    <span class="n">kexo</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">kexo0</span><span class="p">)</span>
+    <span class="n">kexo</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">Stim_Resp</span><span class="p">,[</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">60</span><span class="p">])</span>
+    <span class="n">Vspine</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">V0</span><span class="p">)</span>
+    <span class="n">Vspine</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">DV</span><span class="p">,[</span><span class="n">V0</span><span class="p">,</span><span class="kc">True</span><span class="p">])</span>
+    
+    <span class="n">Model</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Model_system</span><span class="p">()</span>
+    
+    <span class="n">solve</span><span class="p">,</span><span class="n">infodict</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">Model</span><span class="o">.</span><span class="n">odes</span><span class="p">,</span><span class="n">Init</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">Vspine</span><span class="p">,</span><span class="n">P</span><span class="p">,</span><span class="n">kin</span><span class="p">,</span><span class="n">kout</span><span class="p">,</span><span class="n">kexo</span><span class="p">,</span><span class="n">kendo</span><span class="p">,</span><span class="n">kUB</span><span class="p">,</span><span class="n">kBU</span><span class="p">,</span><span class="n">Cooperativity</span><span class="p">,</span><span class="n">sLTP</span><span class="p">,</span><span class="n">kin_RE</span><span class="p">,</span><span class="n">kout_RE</span><span class="p">),</span><span class="n">full_output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1">#E-LTP without exocytosis:</span>
+    <span class="n">kexo</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">kexo</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">Stim_Resp</span><span class="p">,[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">60</span><span class="p">])</span>
+    <span class="n">Vspine</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">V0</span><span class="p">)</span>
+    <span class="n">Vspine</span><span class="o">.</span><span class="n">timecourse</span><span class="p">(</span><span class="n">DV</span><span class="p">,[</span><span class="n">V0</span><span class="p">,</span><span class="kc">False</span><span class="p">])</span>
+    
+    <span class="n">Model</span><span class="o">=</span><span class="n">mf</span><span class="o">.</span><span class="n">Model_system</span><span class="p">()</span>
+    
+    <span class="n">solve2</span><span class="p">,</span><span class="n">infodict2</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">Model</span><span class="o">.</span><span class="n">odes</span><span class="p">,</span><span class="n">Init</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">Vspine</span><span class="p">,</span><span class="n">P</span><span class="p">,</span><span class="n">kin</span><span class="p">,</span><span class="n">kout</span><span class="p">,</span><span class="n">kexo</span><span class="p">,</span><span class="n">kendo</span><span class="p">,</span><span class="n">kUB</span><span class="p">,</span><span class="n">kBU</span><span class="p">,</span><span class="n">Cooperativity</span><span class="p">,</span><span class="n">sLTP</span><span class="p">,</span><span class="n">kin_RE</span><span class="p">,</span><span class="n">kout_RE</span><span class="p">),</span><span class="n">full_output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    
+    <span class="n">fig</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">Barco2002_x</span><span class="p">,</span><span class="n">Barco2002_y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">Penn2017_x</span><span class="p">,</span><span class="n">Penn2017_y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span><span class="n">solve</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">20</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">col1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sLTP+Coop. Model&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span><span class="n">solve2</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">20</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">col2</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sLTP+Coop. Model, $k_</span><span class="si">{exo}</span><span class="s1">=0$&#39;</span><span class="p">)</span>
+    <span class="n">lgd</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.65</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower left&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="n">borderaxespad</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">prop</span><span class="o">=</span><span class="n">fontLgd</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (min)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Bound AMPARs $B$ (%)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">130</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Moritz F P Becker
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

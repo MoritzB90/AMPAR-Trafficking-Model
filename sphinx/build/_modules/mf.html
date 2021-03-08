@@ -1,0 +1,498 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mf &mdash; AMPAR_Mean-Field-Model 02.11.2020 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> AMPAR_Mean-Field-Model
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">AMPAR_Mean-Field-Model</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>mf</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for mf</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Wed Nov  4 11:43:38 2020</span>
+
+<span class="sd">@author: Moritz</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="Parameter"><a class="viewcode-back" href="../index.html#mf.Parameter">[docs]</a><span class="k">class</span> <span class="nc">Parameter</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;This class defines some basic properties and functionality for parameters that change during LTP induction.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    base_value : float</span>
+<span class="sd">        Base value of the correspconding model parameter, i.e. before LTP-induction.</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    timecourse(function,pars)</span>
+<span class="sd">        Sets up time course of the parameter during LTP-induction. Requires a function and the parameters of that function to be passed.</span>
+<span class="sd">    update(t)</span>
+<span class="sd">        Updates the parameter to the current value according to the function passed to timecourse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">base_value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;    </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        base_value : float</span>
+<span class="sd">            Base value of the correspconding model parameter, i.e. before LTP-induction.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_value</span><span class="o">=</span><span class="n">base_value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_value</span><span class="o">=</span><span class="n">base_value</span>
+    
+<div class="viewcode-block" id="Parameter.timecourse"><a class="viewcode-back" href="../index.html#mf.Parameter.timecourse">[docs]</a>    <span class="k">def</span> <span class="nf">timecourse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">function</span><span class="p">,</span><span class="n">pars</span><span class="p">):</span>
+        
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets up time course of the parameter during LTP-induction. Requires a function and the parameters of that function to be passed.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        function : function</span>
+<span class="sd">            A function that describes the time course of the parameter during LTP-induction</span>
+<span class="sd">        pars : array_like</span>
+<span class="sd">            List of parameters for the function.</span>
+<span class="sd">            </span>
+<span class="sd">    </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out: </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">pars</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pars</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">course</span><span class="o">=</span><span class="n">function</span></div>
+        
+<div class="viewcode-block" id="Parameter.update"><a class="viewcode-back" href="../index.html#mf.Parameter.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets up time course of the parameter during LTP-induction. Requires a function and the parameters of that function to be passed.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        t : float</span>
+<span class="sd">            Time passed since the LTP induction stimulus.</span>
+<span class="sd">    </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out: Updates current value of the partameter.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">base_value</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">course</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">pars</span><span class="p">)</span></div></div>
+        
+
+
+<div class="viewcode-block" id="Model_system"><a class="viewcode-back" href="../index.html#mf.Model_system">[docs]</a><span class="k">class</span> <span class="nc">Model_system</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;This class contains the set of differential equations that describe AMPAR trafficking at spines.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    odes(Init,t,Vspine,P,kin,kout,kexo,kendo,kUB,kBU,Cooperativity,sLTP,kin_RE,kout_RE)</span>
+<span class="sd">        Defines the ODEs that describe the synapse.</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;    </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        container : array_like</span>
+<span class="sd">            container that can be filled with any parameter one is interested in during numerical integration, e.g. t, kexo or Vspine etc..</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">container</span><span class="o">=</span><span class="p">[]</span>
+        
+<div class="viewcode-block" id="Model_system.odes"><a class="viewcode-back" href="../index.html#mf.Model_system.odes">[docs]</a>    <span class="k">def</span> <span class="nf">odes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">Init</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">Vspine</span><span class="p">,</span><span class="n">P</span><span class="p">,</span><span class="n">kin</span><span class="p">,</span><span class="n">kout</span><span class="p">,</span><span class="n">kexo</span><span class="p">,</span><span class="n">kendo</span><span class="p">,</span><span class="n">kUB</span><span class="p">,</span><span class="n">kBU</span><span class="p">,</span><span class="n">Cooperativity</span><span class="p">,</span><span class="n">sLTP</span><span class="p">,</span><span class="n">kin_RE</span><span class="p">,</span><span class="n">kout_RE</span><span class="p">):</span>
+        
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Defines the ODEs that describe the AMPAR dynamics at the spine.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        Init : [U(0),B(0),Sexo(0)]</span>
+<span class="sd">            Initial conditions for the three variables of the system.</span>
+<span class="sd">        t : array_like</span>
+<span class="sd">            Time.</span>
+<span class="sd">        Vspine : float</span>
+<span class="sd">            Describes the spine volume and spine volume change during E-LTP.</span>
+<span class="sd">        P : float</span>
+<span class="sd">            Number of binding site/slots at the PSD.</span>
+<span class="sd">        kin : float</span>
+<span class="sd">            Rate at which receptors hop from the dednritic membrane compartment onto the spine membrane compartment.</span>
+<span class="sd">        kout : float </span>
+<span class="sd">            Rate at which receptors hop from the spine membrane compartment onto the dendritic membrane compartment.</span>
+<span class="sd">        kexo : float</span>
+<span class="sd">            Rate of exocytosis events occuring at the spine.</span>
+<span class="sd">        kendo : float</span>
+<span class="sd">            Rate at which receptors are endocytosed at the spine.</span>
+<span class="sd">        kUB : float</span>
+<span class="sd">            Rate at which AMPARs bind to PSD slots.</span>
+<span class="sd">        kBU : float</span>
+<span class="sd">            Rate at which AMPARs unbind from PSD slots.</span>
+<span class="sd">        Cooperativity: 1,0</span>
+<span class="sd">            States whether binding is cooperative (1) or not cooperative (0).</span>
+<span class="sd">        sLTP : 1,0</span>
+<span class="sd">            States whether slTP does occur (1) or does not occur (0).</span>
+<span class="sd">        kin_RE : float</span>
+<span class="sd">            Rate at which AMPAR containing endosomes enter the spine (dynamics of exocytosis event size Sexo).</span>
+<span class="sd">        kout_RE : float</span>
+<span class="sd">            Rate at which AMPAR containing endosomes leave the spine.</span>
+<span class="sd">            </span>
+<span class="sd">            </span>
+<span class="sd">    </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out: [dU,dB,dS_exo]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+    
+        <span class="bp">self</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">Vspine</span><span class="o">.</span><span class="n">current_value</span><span class="p">,</span><span class="n">t</span><span class="p">])</span>
+        
+        <span class="n">U</span><span class="o">=</span><span class="n">Init</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">B</span><span class="o">=</span><span class="n">Init</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">S_exo</span><span class="o">=</span><span class="n">Init</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    
+    
+        <span class="k">def</span> <span class="nf">kUB_</span><span class="p">(</span><span class="n">B</span><span class="p">,</span><span class="n">kUB</span><span class="p">,</span><span class="n">Cooperativity</span><span class="p">,</span><span class="n">P</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">Cooperativity</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>       
+                <span class="n">m</span> <span class="o">=</span> <span class="mf">24.6</span><span class="o">/</span><span class="p">(</span><span class="mf">12.5</span> <span class="o">+</span> <span class="n">P</span><span class="p">);</span>
+                <span class="k">return</span> <span class="n">kUB</span><span class="o">*</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="n">B</span><span class="o">**</span><span class="mf">0.8</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">kUB</span>
+            
+        <span class="k">def</span> <span class="nf">kBU_</span><span class="p">(</span><span class="n">B</span><span class="p">,</span><span class="n">kBU</span><span class="p">,</span><span class="n">Cooperativity</span><span class="p">,</span><span class="n">P</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">Cooperativity</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">Lambda</span> <span class="o">=</span> <span class="mf">0.9</span><span class="o">*</span><span class="n">P</span> <span class="o">+</span> <span class="mf">15.5</span><span class="p">;</span>
+                <span class="n">Beta</span> <span class="o">=</span> <span class="mf">0.6</span><span class="o">*</span><span class="n">P</span> <span class="o">+</span> <span class="mf">9.3</span><span class="p">;</span>
+                <span class="k">return</span> <span class="n">kBU</span><span class="o">*</span><span class="p">(</span><span class="n">Lambda</span><span class="o">/</span><span class="p">(</span><span class="n">Beta</span> <span class="o">+</span> <span class="n">B</span><span class="p">)</span><span class="o">-</span><span class="mf">0.5</span><span class="p">);</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">kBU</span>
+            
+        <span class="n">kexo</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        <span class="n">kUB</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">sLTP</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">Vspine</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        
+        <span class="n">Aspine</span><span class="o">=</span><span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">Vspine</span><span class="o">.</span><span class="n">current_value</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+
+        <span class="n">dS_exo</span><span class="o">=</span><span class="n">kin_RE</span><span class="o">-</span><span class="n">kout_RE</span><span class="o">*</span><span class="n">S_exo</span><span class="o">/</span><span class="n">Vspine</span><span class="o">.</span><span class="n">current_value</span>
+        <span class="n">dU</span><span class="o">=</span><span class="n">kexo</span><span class="o">.</span><span class="n">current_value</span><span class="o">*</span><span class="n">S_exo</span><span class="o">+</span><span class="n">kin</span><span class="o">+</span><span class="n">kBU_</span><span class="p">(</span><span class="n">B</span><span class="p">,</span><span class="n">kBU</span><span class="p">,</span><span class="n">Cooperativity</span><span class="p">,</span><span class="n">P</span><span class="p">)</span><span class="o">*</span><span class="n">B</span><span class="o">-</span><span class="n">kendo</span><span class="o">*</span><span class="n">U</span><span class="o">/</span><span class="n">Aspine</span><span class="o">-</span><span class="n">kout</span><span class="o">*</span><span class="n">U</span><span class="o">/</span><span class="n">Aspine</span><span class="o">-</span><span class="n">kUB_</span><span class="p">(</span><span class="n">B</span><span class="p">,</span><span class="n">kUB</span><span class="o">.</span><span class="n">current_value</span><span class="p">,</span><span class="n">Cooperativity</span><span class="p">,</span><span class="n">P</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">P</span><span class="o">-</span><span class="n">B</span><span class="p">)</span><span class="o">*</span><span class="n">U</span><span class="o">/</span><span class="n">Aspine</span>
+        <span class="n">dB</span><span class="o">=</span><span class="n">kUB_</span><span class="p">(</span><span class="n">B</span><span class="p">,</span><span class="n">kUB</span><span class="o">.</span><span class="n">current_value</span><span class="p">,</span><span class="n">Cooperativity</span><span class="p">,</span><span class="n">P</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">P</span><span class="o">-</span><span class="n">B</span><span class="p">)</span><span class="o">*</span><span class="n">U</span><span class="o">/</span><span class="n">Aspine</span><span class="o">-</span><span class="n">kBU_</span><span class="p">(</span><span class="n">B</span><span class="p">,</span><span class="n">kBU</span><span class="p">,</span><span class="n">Cooperativity</span><span class="p">,</span><span class="n">P</span><span class="p">)</span><span class="o">*</span><span class="n">B</span>
+    
+        <span class="k">return</span> <span class="p">[</span><span class="n">dU</span><span class="p">,</span><span class="n">dB</span><span class="p">,</span><span class="n">dS_exo</span><span class="p">]</span></div></div>
+
+
+
+<div class="viewcode-block" id="Stim_Resp"><a class="viewcode-back" href="../index.html#mf.Stim_Resp">[docs]</a><span class="k">def</span> <span class="nf">Stim_Resp</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">a0</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This function describes the response of a parameter to the LTP induction-stimulus.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    t : float</span>
+<span class="sd">        time passed since induction of LTP</span>
+<span class="sd">    a0 : float</span>
+<span class="sd">        baseline of the parameter (Should usually be set to 1). </span>
+<span class="sd">    a : float</span>
+<span class="sd">        Parameter amplitude during LTP induction</span>
+<span class="sd">    b : float</span>
+<span class="sd">        time constant</span>
+<span class="sd">    c : float</span>
+<span class="sd">        time constant</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        current factor of parameter change.</span>
+<span class="sd">        </span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    </span>
+<span class="sd">    Import libraries:</span>
+<span class="sd">        </span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
+<span class="sd">    &gt;&gt;&gt; import mf as mf</span>
+<span class="sd">    &gt;&gt;&gt; import seaborn as sns</span>
+<span class="sd">    </span>
+<span class="sd">    Set parameters:</span>
+
+<span class="sd">    &gt;&gt;&gt; t=np.linspace(0,10*60,100)</span>
+<span class="sd">    &gt;&gt;&gt; kexo0=0.0018</span>
+<span class="sd">    &gt;&gt;&gt; exocytosis=True</span>
+<span class="sd">    </span>
+<span class="sd">    Plot:</span>
+<span class="sd">        </span>
+<span class="sd">    &gt;&gt;&gt; plt.figure(figsize=(4,3), dpi=150)</span>
+<span class="sd">    &gt;&gt;&gt; plt.plot(t/60,kexo0*mf.Stim_Resp(t,1,5,25,60), linewidth=2)</span>
+<span class="sd">    &gt;&gt;&gt; plt.xlabel(&#39;Time (min.)&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; plt.ylabel(&#39;$k_{exo}$ ($s^{-1}$)&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; sns.despine()</span>
+
+<span class="sd">    Output:</span>
+<span class="sd">        </span>
+<span class="sd">    .. image:: images/example_Stim_Resp.png</span>
+<span class="sd">        :width: 70%</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">A</span><span class="o">=</span><span class="p">(</span><span class="n">b</span><span class="o">/</span><span class="n">c</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">c</span><span class="o">/</span><span class="p">(</span><span class="n">c</span><span class="o">-</span><span class="n">b</span><span class="p">))</span><span class="o">-</span><span class="p">(</span><span class="n">b</span><span class="o">/</span><span class="n">c</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">b</span><span class="o">/</span><span class="p">(</span><span class="n">c</span><span class="o">-</span><span class="n">b</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">a0</span><span class="o">+</span><span class="n">a</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">t</span><span class="o">/</span><span class="n">b</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">t</span><span class="o">/</span><span class="n">c</span><span class="p">))</span><span class="o">/</span><span class="n">A</span></div>
+
+
+
+<div class="viewcode-block" id="DV"><a class="viewcode-back" href="../index.html#mf.DV">[docs]</a><span class="k">def</span> <span class="nf">DV</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V0</span><span class="p">,</span><span class="n">exocytosis</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This function describes the evolution of the spine volume during sLTP.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    t : float</span>
+<span class="sd">        time passed since induction of LTP</span>
+<span class="sd">    V0 : float</span>
+<span class="sd">        initial spine volume. </span>
+<span class="sd">    exocytosis : True, False</span>
+<span class="sd">        States whether exocytosis is blocked or not. Make sure that the boolean value is chosen in agreement with the definition of kexo.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        current factor of spine volume change. </span>
+<span class="sd">        </span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    </span>
+<span class="sd">    Import libraries:</span>
+<span class="sd">        </span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
+<span class="sd">    &gt;&gt;&gt; import mf as mf</span>
+<span class="sd">    &gt;&gt;&gt; import seaborn as sns</span>
+<span class="sd">    </span>
+<span class="sd">    Set parameters:</span>
+
+<span class="sd">    &gt;&gt;&gt; t=np.linspace(0,120*60,1000)</span>
+<span class="sd">    &gt;&gt;&gt; exocytosis=True</span>
+<span class="sd">    &gt;&gt;&gt; spineVolumes=[0.04,0.08,0.2]</span>
+<span class="sd">    </span>
+<span class="sd">    Plot:</span>
+<span class="sd">        </span>
+<span class="sd">    &gt;&gt;&gt; plt.figure(figsize=(4,3), dpi=150)</span>
+<span class="sd">    &gt;&gt;&gt; for V0 in spineVolumes:</span>
+<span class="sd">    &gt;&gt;&gt;     plt.plot(t/60,mf.DV(t,V0,exocytosis)*100, linewidth=2, label=&#39;$V_{spine}^0=$&#39;+&#39;{:1.2f} $\mu m^3$&#39;.format(V0))</span>
+<span class="sd">    &gt;&gt;&gt; plt.legend()</span>
+<span class="sd">    &gt;&gt;&gt; plt.xlabel(&#39;Time (min.)&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; plt.ylabel(&#39;$V_{spine}$ (%)&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; sns.despine()</span>
+
+<span class="sd">    Output:</span>
+<span class="sd">        </span>
+<span class="sd">    .. image:: images/example_DV.png</span>
+<span class="sd">        :width: 70%</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="nf">DV_long_</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="n">a</span><span class="o">=</span><span class="mi">299</span>
+        <span class="n">b</span><span class="o">=</span><span class="mf">0.102</span>
+        <span class="n">c</span><span class="o">=-</span><span class="mf">0.9</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">/</span><span class="n">b</span><span class="p">)</span><span class="o">+</span><span class="n">c</span><span class="p">)</span><span class="o">/</span><span class="mi">100</span>
+    
+    <span class="k">if</span> <span class="n">exocytosis</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+        <span class="n">DVlong</span><span class="o">=</span><span class="n">DV_long_</span><span class="p">(</span><span class="n">V0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">DVlong</span><span class="o">=</span><span class="mi">0</span>
+        
+    <span class="n">a0_1</span><span class="o">=</span><span class="mi">1</span>
+    <span class="n">a_1</span><span class="o">=</span><span class="mi">1</span><span class="o">+</span><span class="mf">1.75</span><span class="o">*</span><span class="n">DVlong</span>
+    <span class="n">b_1</span><span class="o">=</span><span class="mi">250</span>
+    <span class="n">c_1</span><span class="o">=</span><span class="mi">5</span>
+    
+    <span class="n">a0_2</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">a_2</span><span class="o">=</span><span class="n">DVlong</span>
+    <span class="n">b_2</span><span class="o">=</span><span class="mi">3000</span>
+    <span class="n">c_2</span><span class="o">=</span><span class="mi">500</span>
+    
+    <span class="k">return</span> <span class="n">Stim_Resp</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">a0_1</span><span class="p">,</span><span class="n">a_1</span><span class="p">,</span><span class="n">b_1</span><span class="p">,</span><span class="n">c_1</span><span class="p">)</span><span class="o">+</span><span class="n">Stim_Resp</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">a0_2</span><span class="p">,</span><span class="n">a_2</span><span class="p">,</span><span class="n">b_2</span><span class="p">,</span><span class="n">c_2</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Moritz F P Becker
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
