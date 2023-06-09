@@ -1,6 +1,6 @@
 # AMPAR-Trafficking-Model
 
-AMPAR-Trafficking-Model contains the Python code used in the paper "The biophysical basis underlying the maintenance of early phase long-term potentiation" (PLOS CB: https://doi.org/10.1371/journal.pcbi.1008813). Code documentation can be found under https://moritzb90.github.io/AMPAR-Trafficking-Model/.
+AMPAR-Trafficking-Model contains the Python code used in the paper "The biophysical basis underlying the maintenance of early phase long-term potentiation" (PLOS CB: https://doi.org/10.1371/journal.pcbi.1008813). Code documentation can be found under https://moritzb90.github.io/AMPAR-Trafficking-Model_doc/.
 
 * A package "ampartrafficking" is provided containing four modules:
   - rate_model: Contains functions and classes for the rate model of AMPAR-trafficking (inlcuding the mean-field approximation of cooperative binding/unbinding rates).
